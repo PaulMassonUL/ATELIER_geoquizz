@@ -1,0 +1,106 @@
+version: '3'
+networks:
+  geo-quizz.net:
+    driver: bridge
+services:
+
+  api.geo-quizz:
+    image: 'canals/php:latest'
+    env_file: ./quiz.env
+    ports:
+      - '2080:80'
+    volumes:
+      - ../quiz.geoquizz:/var/www
+      - ../quiz.geoquizz/public:/var/www/html
+    working_dir: /var/www/
+    networks:
+      - geo-quizz.net
+    depends_on:
+      geo.quizz.db:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+
+  geo.quizz.db:
+    image: 'mariadb:latest'
+    command: '--default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci'
+    env_file: ./quiz.env
+    ports:
+      - '3307:3306'
+    networks:
+      - geo-quizz.net
+    volumes:
+      - ../quiz.geoquizz/sql:/var/sql
+
+  adminer:
+    image: adminer
+    ports:
+      - '8080:8080'
+    networks:
+      - geo-quizz.net
+
+  api.geo-auth:
+    image: 'canals/php:latest'
+    env_file: ./auth.env
+    ports:
+      - '2780:80'
+    volumes:
+      - ../auth.geoquizz:/var/www
+      - ../auth.geoquizz/public:/var/www/html
+    working_dir: /var/www
+    networks:
+      - geo-quizz.net
+    depends_on:
+      - geo.auth.db
+
+  geo.auth.db:
+    image: 'mariadb:latest'
+    command: '--default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci'
+    env_file: ./auth.env
+    ports:
+      - '3308:3306'
+    networks:
+      - geo-quizz.net
+    volumes:
+      - ../auth.geoquizz/sql:/var/sql
+
+  directus:
+    image: directus/directus:latest
+    ports:
+      - 11055:8055
+    volumes:
+      - ./database:/directus/database
+      - ./uploads:/directus/uploads
+      # If you want to load extensions from the host
+      # - ./extensions:/directus/extensions
+    environment:
+      KEY: "255d861b-5ea1-5996-9aa3-922530ec40b1"
+      SECRET: "6116487b-cda1-52c2-b5b5-c8022c45e263"
+
+      ADMIN_EMAIL: "admin@example.com"
+      ADMIN_PASSWORD: "d1r3ctu5"
+
+      WEBSOCKETS_ENABLED: true
+
+      # Make sure to set this in production
+      # (see https://docs.directus.io/self-hosted/config-options#general)
+      # PUBLIC_URL: "https://directus.example.com"
+
+    # Environment variables can also be defined in a file (for example `.env`):
+    # env_file: directus.env
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - '15672:15672'
+      - '5672:5672'
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 8s
+      timeout: 30s
+      retries: 3
+    networks:
+      - geo-quizz.net
+    volumes:
+      - ../rabbitmq.geoquizz:/var/lib/rabbitmq
+    env_file: ./rab.env
