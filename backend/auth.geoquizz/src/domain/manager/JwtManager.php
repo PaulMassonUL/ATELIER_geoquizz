@@ -6,7 +6,7 @@ use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-class JwtManager implements iJwtManager
+class JwtManager implements JwtManagerInterface
 {
     private string $secret;
     private string $alg;

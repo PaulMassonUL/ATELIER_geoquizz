@@ -9,7 +9,6 @@ use Slim\Exception\HttpUnauthorizedException;
 
 class Cors
 {
-
     public function __invoke(ServerRequestInterface $rq, RequestHandlerInterface $next): ResponseInterface
     {
 

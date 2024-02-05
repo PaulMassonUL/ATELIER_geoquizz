@@ -5,22 +5,21 @@ namespace geoquizz\auth\domain\service;
 use geoquizz\auth\domain\dto\CredentialsDTO;
 use geoquizz\auth\domain\dto\TokenDTO;
 use geoquizz\auth\domain\dto\UserDTO;
-use geoquizz\auth\domain\manager\iJwtManager;
+use geoquizz\auth\domain\manager\JwtManagerInterface;
 use geoquizz\auth\domain\manager\JwtManagerExpiredTokenException;
 use geoquizz\auth\domain\manager\JwtManagerInvalidTokenException;
 use geoquizz\auth\domain\provider\AuthProviderInvalidCredentialsException;
 use geoquizz\auth\domain\provider\AuthProviderInvalidTokenException;
-use geoquizz\auth\domain\provider\iAuthProvider;
+use geoquizz\auth\domain\provider\AuthProviderInterface;
 use Psr\Log\LoggerInterface;
 
-class AuthService implements iAuth
+class AuthService implements AuthServiceInterface
 {
-
-    private iJwtManager $jwtManager;
-    private iAuthProvider $authProvider;
+    private JwtManagerInterface $jwtManager;
+    private AuthProviderInterface $authProvider;
     private LoggerInterface $logger;
 
-    public function __construct(iJwtManager $jwtManager, iAuthProvider $authProvider, LoggerInterface $logger)
+    public function __construct(JwtManagerInterface $jwtManager, AuthProviderInterface $authProvider, LoggerInterface $logger)
     {
         $this->jwtManager = $jwtManager;
         $this->authProvider = $authProvider;
@@ -88,29 +87,5 @@ class AuthService implements iAuth
         $user = $this->authProvider->getAuthenticatedUser();
 
         return new TokenDTO($this->jwtManager->create($user), $user['refresh_token']);
-    }
-
-    /**
-     * @throws AuthServiceInvalidTokenException
-     */
-    public function activate_signup(TokenDTO $t): void
-    {
-        try {
-            $this->authProvider->activate($t->access_token);
-        } catch (AuthProviderInvalidTokenException) {
-            throw new AuthServiceInvalidTokenException("Invalid token");
-        }
-    }
-
-    /**
-     * @throws AuthServiceInvalidTokenException
-     */
-    public function reset_password(TokenDTO $t, CredentialsDTO $c, string $newPassword): void
-    {
-        try {
-            $this->authProvider->resetPassword($t->access_token, $c->password, $newPassword);
-        } catch (AuthProviderInvalidTokenException) {
-            throw new AuthServiceInvalidTokenException("Invalid token");
-        }
     }
 }

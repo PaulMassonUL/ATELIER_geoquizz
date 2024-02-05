@@ -5,9 +5,8 @@ namespace geoquizz\auth\domain\provider;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use geoquizz\auth\domain\entities\User;
 
-class AuthProvider implements iAuthProvider
+class AuthProvider implements AuthProviderInterface
 {
-
     private User $authenticatedUser;
 
     /**
@@ -17,7 +16,9 @@ class AuthProvider implements iAuthProvider
     {
         try {
             $user = User::findOrFail($email);
-            if (!password_verify($pass, $user->password)) throw new AuthProviderInvalidCredentialsException("Invalid credentials");
+            if (!password_verify($pass, $user->password)) {
+                throw new AuthProviderInvalidCredentialsException("Invalid credentials");
+            }
             $this->authenticatedUser = $user;
             $this->generateRefreshToken($user);
         } catch (ModelNotFoundException) {
@@ -49,7 +50,9 @@ class AuthProvider implements iAuthProvider
     public function register(string $email, string $pass, string $username): void
     {
         $user = User::find($email);
-        if (!is_null($user)) throw new AuthProviderInvalidCredentialsException("User already exists");
+        if (!is_null($user)) {
+            throw new AuthProviderInvalidCredentialsException("User already exists");
+        }
 
         $user = new User();
         $user->email = $email;
@@ -58,40 +61,6 @@ class AuthProvider implements iAuthProvider
         $user->save();
 
         $this->authenticatedUser = $user;
-    }
-
-    public function activate(string $token): void
-    {
-        try {
-            $user = User::where('activation_token', $token)
-                ->where('activation_token_expiration_date', '>=', date('Y-m-d H:i:s'))
-                ->firstOrFail();
-
-            $user->active = true;
-            $user->save();
-        } catch (ModelNotFoundException) {
-            throw new AuthProviderInvalidTokenException("Invalid activation token");
-        }
-    }
-
-    /**
-     * @throws AuthProviderInvalidCredentialsException
-     * @throws AuthProviderInvalidTokenException
-     */
-    public function resetPassword(string $token, string $old_pass, string $new_pass): void
-    {
-        try {
-            $user = User::where('reset_passwd_token', $token)
-                ->where('reset_passwd_token_expiration_date', '>=', date('Y-m-d H:i:s'))
-                ->firstOrFail();
-
-            if (!password_verify($old_pass, $user->password)) throw new AuthProviderInvalidCredentialsException("Invalid password");
-
-            $user->password = password_hash($new_pass, PASSWORD_DEFAULT, ['cost' => 12]);
-            $user->save();
-        } catch (ModelNotFoundException) {
-            throw new AuthProviderInvalidTokenException("Invalid reset password token");
-        }
     }
 
     public function getAuthenticatedUser(): array
