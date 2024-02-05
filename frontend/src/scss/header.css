@@ -1,0 +1,17 @@
+.logo {
+  width: 100%;
+  height: auto;
+  position: absolute;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.nav-accueil {
+  font-size: 60px;
+}
+
+/*# sourceMappingURL=header.css.map */
