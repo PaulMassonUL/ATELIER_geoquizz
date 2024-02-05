@@ -4,16 +4,16 @@ namespace geoquizz\auth\app\actions;
 
 use geoquizz\auth\domain\dto\CredentialsDTO;
 use geoquizz\auth\domain\service\AuthServiceCredentialsException;
-use geoquizz\auth\domain\service\iAuth;
+use geoquizz\auth\domain\service\AuthServiceInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
 
 class SignupAction extends Action
 {
-    private iAuth $serviceAuth;
+    private AuthServiceInterface $serviceAuth;
 
-    public function __construct(iAuth $serviceAuth)
+    public function __construct(AuthServiceInterface $serviceAuth)
     {
         $this->serviceAuth = $serviceAuth;
     }

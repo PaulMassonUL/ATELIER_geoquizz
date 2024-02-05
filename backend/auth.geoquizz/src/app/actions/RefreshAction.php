@@ -4,7 +4,7 @@ namespace geoquizz\auth\app\actions;
 
 use geoquizz\auth\domain\dto\TokenDTO;
 use geoquizz\auth\domain\service\AuthServiceInvalidTokenException;
-use geoquizz\auth\domain\service\iAuth;
+use geoquizz\auth\domain\service\AuthServiceInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpUnauthorizedException;
@@ -12,9 +12,9 @@ use Slim\Routing\RouteContext;
 
 class RefreshAction extends Action
 {
-    private iAuth $serviceAuth;
+    private AuthServiceInterface $serviceAuth;
 
-    public function __construct(iAuth $serviceAuth)
+    public function __construct(AuthServiceInterface $serviceAuth)
     {
         $this->serviceAuth = $serviceAuth;
     }

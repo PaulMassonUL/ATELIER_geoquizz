@@ -8,7 +8,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 abstract class Action
 {
-
     protected ContainerInterface $container;
 
     public function __construct(ContainerInterface $container)
