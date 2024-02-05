@@ -1,13 +1,30 @@
--- Insertion de données dans la table `partie`
-INSERT INTO `partie` (`id`, `name`, `ville`, `sequence`)
-VALUES
-    ('1', 'Partie 1', 'Ville A', '[{"id": 1, "url": "image1.jpg", "coordonnees": "12,34"}, {"id": 2, "url": "image2.jpg", "coordonnees": "56,78"}]'),
-    ('2', 'Partie 2', 'Ville B', '[{"id": 3, "url": "image3.jpg", "coordonnees": "90,12"}, {"id": 4, "url": "image4.jpg", "coordonnees": "34,56"}]');
+-- Adminer 4.8.1 MySQL 11.2.2-MariaDB-1:11.2.2+maria~ubu2204 dump
 
--- Insertion de données dans la table `jouer`
-INSERT INTO `jouer` (`id_partie`, `id_user`, `score`, `etat`, `date`)
-VALUES
-    ('1', 'User1', 100, 1, '2024-02-05 10:00:00'),
-    ('1', 'User2', 80, 1, '2024-02-05 10:30:00'),
-    ('2', 'User1', 120, 1, '2024-02-05 11:00:00'),
-    ('2', 'User2', 90, 1, '2024-02-05 11:30:00');
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+DROP TABLE IF EXISTS `game`;
+DROP TABLE IF EXISTS `played`;
+
+CREATE TABLE `game`
+(
+    `id`   varchar(64)  NOT NULL,
+    `name` varchar(255) NOT NULL,
+    `city` varchar(255) NOT NULL,
+    `sequence` JSON NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `played`
+(
+    `id`        int(11) NOT NULL AUTO_INCREMENT,
+    `id_game` varchar(255) NOT NULL,
+    `id_user`   varchar(255) NOT NULL,
+    `score`     int(11) NOT NULL,
+    `state`      int(11) NOT NULL,
+    `date`      datetime NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_game_id` FOREIGN KEY (`id_game`) REFERENCES `game` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
