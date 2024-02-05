@@ -67,7 +67,7 @@ services:
   directus:
     image: directus/directus:latest
     ports:
-      - 11055:8055
+      - '11055:8055'
     volumes:
       - ../directus.geoquizz/database:/directus/database
       - ../directus.geoquizz/uploads:/directus/uploads
