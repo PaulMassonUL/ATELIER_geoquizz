@@ -69,8 +69,8 @@ services:
     ports:
       - 11055:8055
     volumes:
-      - ./database:/directus/database
-      - ./uploads:/directus/uploads
+      - ../directus.geoquizz/database:/directus/database
+      - ../directus.geoquizz/uploads:/directus/uploads
       # If you want to load extensions from the host
       # - ./extensions:/directus/extensions
     environment:
