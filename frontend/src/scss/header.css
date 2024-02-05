@@ -1,17 +1,57 @@
-.logo {
-  width: 100%;
-  height: auto;
-  position: absolute;
+@import url("https://fonts.googleapis.com/css2?family=Knewave&display=swap");
+header {
+  height: 700px;
 }
-
-nav {
+header .menu {
+  margin-bottom: 200px;
+}
+header .menu .logo {
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  height: 700px;
+}
+header .menu .wrapper {
+  width: 80%;
+  margin: auto;
+}
+header .menu .wrapper nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
-
-.nav-accueil {
+header .menu .wrapper nav a {
+  text-decoration: none;
+  color: white;
+}
+header .menu .wrapper nav a:not(a:first-child) {
+  font-size: 1.2rem;
+  border: 3px solid white;
+  border-radius: 30px;
+  background-color: transparent;
+  padding: 7px 12px;
+}
+header .menu .wrapper nav .nav-accueil {
   font-size: 60px;
+}
+header .header-desc {
+  font-family: "Knewave", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1OOpx;
+  position: relative;
+}
+header .header-desc h1 {
+  color: white;
+  margin-bottom: 30px;
+}
+header .header-desc p {
+  color: white;
+  margin-bottom: 50px;
 }
 
 /*# sourceMappingURL=header.css.map */

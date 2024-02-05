@@ -1,26 +1,39 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+<script>
+import ('@/scss/home.css')
 </script>
 
 <template>
   <main>
-    <section>
-      <article>
-        <img src="@/assets/planete.png" alt="planete">
-        <h1>Découvrez le monde</h1>
-        <p>Découvrez le monde à votre rythme et gagnez des médailles à travers les différents niveaux.</p>
+    <section class="container p-5">
+      <article class="row align-items-center p-5">
+        <div class="col-6">
+          <h2>Découvrez le monde</h2>
+          <p>Découvrez le monde à votre rythme et gagnez des médailles à travers les différents niveaux.</p>
+        </div>
+        <div class="col-3 offset-2">
+          <img src="@/assets/planete.png" alt="planete" width="150" height="150">
+        </div>
       </article>
 
-      <article>
-        <img src="@/assets/cercleAmis.png" alt="cercle d'amis">
-        <h1>Jouez avec vos amis</h1>
-        <p>Mettez vos compétences à l'épreuve contre vos amis et votre famille. Créez votre propre fête privée et jouez ensemble.</p>
+      <article class="row align-items-center p-5">
+        <div class="col-3 offset-3">
+          <img src="@/assets/cercleAmis.png" alt="cercle d'amis" width="150" height="150">
+        </div>
+        <div class="col-6">
+          <h2>Jouez avec vos amis</h2>
+          <p>Mettez vos compétences à l'épreuve contre vos amis et votre famille. Créez votre propre fête privée et jouez
+            ensemble.</p>
+        </div>
       </article>
 
-      <article>
-        <img src="@/assets/medaille.png" alt="medaille">
-        <h1>Mesurez-vous aux autres</h1>
-        <p>Testez vos capacités contre des joueurs du monde entier et essayer de devenir le leader !</p>
+      <article class="row align-items-center p-5">
+        <div class="col-6">
+          <h2>Mesurez-vous aux autres</h2>
+          <p>Testez vos capacités contre des joueurs du monde entier et essayer de devenir le leader !</p>
+        </div>
+        <div class="col-3 offset-3">
+          <img src="@/assets/medaille.png" alt="medaille" width="150" height="150">
+        </div>
       </article>
     </section>
   </main>
