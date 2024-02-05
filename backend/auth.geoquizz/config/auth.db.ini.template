@@ -1,0 +1,8 @@
+connection=auth
+driver=mysql
+username=
+password=
+host=geo.auth.db
+database=geo_auth
+charset=utf8
+collation=utf8_unicode_ci
