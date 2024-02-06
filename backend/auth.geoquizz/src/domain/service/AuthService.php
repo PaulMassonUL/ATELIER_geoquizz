@@ -49,7 +49,7 @@ class AuthService implements AuthServiceInterface
         try {
             $this->authProvider->checkCredentials($c->email, $c->password);
         } catch (AuthProviderInvalidCredentialsException) {
-            throw new AuthServiceCredentialsException("Invalid credentials: " . $c->email . " " . $c->password);
+            throw new AuthServiceCredentialsException("Invalid email or password.");
         }
         $user = $this->authProvider->getAuthenticatedUser();
 

@@ -8,6 +8,10 @@ use geoquizz\auth\app\actions\RefreshAction;
 
 return function (\Slim\App $app): void {
 
+    $app->options('/{routes:.+}', function ($request, $response) {
+        return $response;
+    });
+
     $app->post('/api/users/signin[/]', SigninAction::class)->setName('signin');
 
     $app->post('/api/users/signup[/]', SignupAction::class)->setName('signup');
