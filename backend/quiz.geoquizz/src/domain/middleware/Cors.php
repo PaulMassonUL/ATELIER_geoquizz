@@ -1,6 +1,6 @@
 <?php
 
-namespace pizzashop\shop\domain\middleware;
+namespace geoquizz\quiz\domain\middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

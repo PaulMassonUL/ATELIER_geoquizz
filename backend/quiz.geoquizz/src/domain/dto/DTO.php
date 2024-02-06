@@ -1,6 +1,6 @@
 <?php
 
-namespace pizzashop\shop\domain\dto;
+namespace geoquizz\quiz\domain\dto;
 
 abstract class DTO
 {

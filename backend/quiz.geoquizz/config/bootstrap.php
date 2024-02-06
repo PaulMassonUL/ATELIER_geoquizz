@@ -25,7 +25,7 @@ $errorHandler->forceContentType('application/json');
 
 $capsule = new \Illuminate\Database\Capsule\Manager();
 
-$capsule->addConnection(parse_ini_file("commande.db.ini"), 'commande');
+$capsule->addConnection(parse_ini_file("quiz.db.ini"), 'quiz');
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 

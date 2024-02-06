@@ -1,8 +1,8 @@
-connection=commande
+connection=quiz
 driver=mysql
 username=
 password=
-host=pizza-shop.commande.db
-database=pizza_shop
+host=geo.quizz.db
+database=geo_quizz
 charset=utf8
 collation=utf8_unicode_ci
