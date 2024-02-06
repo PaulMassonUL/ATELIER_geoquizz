@@ -1,6 +1,6 @@
 <?php
 
-namespace pizzashop\shop\app\actions;
+namespace geoquizz\quiz\app\actions;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;

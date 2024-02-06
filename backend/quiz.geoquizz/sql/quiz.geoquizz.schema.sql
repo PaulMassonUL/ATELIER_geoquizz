@@ -11,9 +11,11 @@ DROP TABLE IF EXISTS `played`;
 CREATE TABLE `game`
 (
     `id`   varchar(64)  NOT NULL,
-    `name` varchar(255) NOT NULL,
-    `city` varchar(255) NOT NULL,
+    `token` varchar(255) NOT NULL,
+    `id_serie` varchar(255) NOT NULL,
     `sequence` JSON NOT NULL,
+    `created_at` datetime NOT NULL,
+    `updated_at` datetime NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
