@@ -1,5 +1,4 @@
 <script>
-
 import { RouterLink, RouterView } from 'vue-router'
 
 export default {
@@ -112,4 +111,3 @@ header {
   width: 20%;
 }
 </style>
-

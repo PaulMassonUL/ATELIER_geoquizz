@@ -6,5 +6,4 @@ export default {
 }
 </script>
 
-<template>
-</template>
+<template></template>
