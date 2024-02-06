@@ -1,9 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 
-import('@/scss/bouton.css')
-import('./scss/header.css')
-
+import('@/css/bouton.css')
+import('@/css/header.css')
 </script>
 
 <template>
@@ -13,16 +12,20 @@ import('./scss/header.css')
       <div class="wrapper">
         <nav>
           <RouterLink class="nav-accueil" to="/">GeoQuizz</RouterLink>
-          <RouterLink to="/connexion">Connexion</RouterLink>
+          <RouterLink to="/signin">Connexion</RouterLink>
         </nav>
       </div>
     </div>
     <div class="header-desc">
       <h1>Explorez le monde</h1>
-      <p>On vous dépose partout : des rues tumultueuses de New York aux magnifiques plages de Bali.</p>
+      <p>
+        On vous dépose partout : des rues tumultueuses de New York aux magnifiques plages de Bali.
+      </p>
       <button class="bouton">JOUEZ MAINTENANT</button>
     </div>
   </header>
 
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
 </template>
