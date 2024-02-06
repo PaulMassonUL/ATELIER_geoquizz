@@ -7,7 +7,7 @@
         <p>
           On vous dépose partout : des rues tumultueuses de New York aux magnifiques plages de Bali.
         </p>
-        <RouterLink class="bouton" to="/series">JOUEZ MAINTENANT</RouterLink>
+        <RouterLink id="bouton" to="/games">JOUEZ MAINTENANT</RouterLink>
       </div>
     </div>
     <div class="content">
@@ -107,7 +107,7 @@
         margin-bottom: 50px;
       }
 
-      .bouton {
+      #bouton {
         text-align: center;
         text-decoration: none;
         border: 2px solid white;
@@ -116,8 +116,8 @@
         background-color: #327cb1;
         text-transform: uppercase;
         padding: 10px 20px;
-        font-weight: bold;
-        width: 20%;
+        font-size: 24px;
+        width: 40%;
         min-width: fit-content;
       }
     }

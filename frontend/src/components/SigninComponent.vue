@@ -112,7 +112,6 @@ export default {
     border-radius: 10px;
     box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
     transition: all .3s ease-in-out;
-    cursor: pointer;
     overflow: hidden;
 
     .card-title {

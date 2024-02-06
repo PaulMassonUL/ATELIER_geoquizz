@@ -1,5 +1,5 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterLink, RouterView} from 'vue-router'
 
 export default {
   name: 'App',
@@ -15,15 +15,15 @@ export default {
     <div class="menu">
       <div class="wrapper">
         <nav>
-          <RouterLink class="nav-accueil" to="/">GeoQuizz</RouterLink>
-          <RouterLink to="/signin">Connexion</RouterLink>
+          <RouterLink id="nav-accueil" to="/">GeoQuizz</RouterLink>
+          <RouterLink id="nav-action" to="/signin">Connexion</RouterLink>
         </nav>
       </div>
     </div>
   </header>
 
   <main>
-    <RouterView />
+    <RouterView/>
   </main>
 </template>
 
@@ -53,15 +53,20 @@ header {
           color: white;
         }
 
-        a:not(a:first-child) {
+        #nav-action {
           font-size: 1.2rem;
           border: 3px solid white;
           border-radius: 30px;
           background-color: transparent;
           padding: 7px 12px;
+
+          &:hover {
+            background-color: white;
+            color: black;
+          }
         }
 
-        .nav-accueil {
+        #nav-accueil {
           font-size: 60px;
         }
       }
