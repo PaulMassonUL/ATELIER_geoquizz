@@ -1,8 +1,17 @@
-<script setup>
+<script>
+
 import { RouterLink, RouterView } from 'vue-router'
 
 import('@/css/bouton.css')
 import('@/css/header.css')
+
+export default {
+  name: 'App',
+  components: {
+    RouterLink,
+    RouterView
+  }
+}
 </script>
 
 <template>
