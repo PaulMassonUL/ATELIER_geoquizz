@@ -37,7 +37,7 @@
                         Testez vos capacités contre des joueurs du monde entier et essayer de devenir le leader !
                     </p>
                 </div>
-                <div class="col-3 offset-3">
+                <div class="col-3 offset-2">
                     <img src="@/assets/medaille.png" alt="medaille" width="200" height="200"/>
                 </div>
             </article>
