@@ -1,8 +1,8 @@
 <?php
 
-namespace geoquizz\quiz\domain\entities\game;
+namespace geoquizz\quiz\domain\entities;
 
-use geoquizz\quiz\domain\dto\game\GameDTO;
+use geoquizz\quiz\domain\dto\GameDTO;
 
 class Game extends \Illuminate\Database\Eloquent\Model
 {
@@ -11,14 +11,17 @@ class Game extends \Illuminate\Database\Eloquent\Model
     protected $table = 'game';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    public $fillable = ['token', 'id_serie', 'sequence'];
+    public $fillable = ['id','token', 'id_serie', 'sequence'];
+
 
     public function toDTO() : GameDTO {
-        return new GameDTO(
-            $this->id,
-            $this->token,
-            $this->id_serie,
-            $this->sequence,
-        );
+        $g = new GameDTO($this->id_serie);
+        $g->id = $this->id;
+        $g->token = $this->token;
+        $g->id_serie = $this->id_serie;
+        $g->sequence = $this->sequence;
+        $g->created_at = $this->created_at;
+        $g->updated_at = $this->updated_at;
+        return $g;
     }
 }

@@ -9,7 +9,11 @@ return [
     },
 
     'game.service' => function (\Psr\Container\ContainerInterface $c) {
-        return new \geoquizz\quiz\domain\service\game\ServiceGame($c->get('game.logger'), $c->get('game.api.base_uri'));
+        return new \geoquizz\quiz\domain\service\game\ServiceGame($c->get('game.logger'), $c->get('serie.service'));
+    },
+
+    'serie.service' => function (\Psr\Container\ContainerInterface $c) {
+        return new \geoquizz\quiz\domain\service\serie\ServiceSerie($c->get('serie.api.base_uri'));
     },
 
 ];

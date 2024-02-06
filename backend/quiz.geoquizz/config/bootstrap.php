@@ -1,7 +1,7 @@
 <?php
 
 use DI\ContainerBuilder;
-use pizzashop\shop\domain\middleware\Cors;
+use geoquizz\quiz\domain\middleware\Cors;
 
 $builder = new ContainerBuilder();
 

@@ -2,6 +2,9 @@
 
 namespace geoquizz\quiz\domain\dto;
 
+
+use Ramsey\Uuid\Uuid;
+
 class GameDTO extends \geoquizz\quiz\domain\dto\DTO
 {
 
