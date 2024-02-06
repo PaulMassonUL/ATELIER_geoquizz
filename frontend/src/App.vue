@@ -12,24 +12,24 @@ export default {
 </script>
 
 <template>
-  <header>
-    <div class="menu">
-      <img alt="Vue logo" class="logo" src="@/assets/landscape.jpg" />
-      <div class="wrapper">
-        <nav>
-          <RouterLink class="nav-accueil" to="/">GeoQuizz</RouterLink>
-          <RouterLink to="/signin">Connexion</RouterLink>
-        </nav>
-      </div>
-    </div>
-    <div class="header-desc">
-      <h1>Explorez le monde</h1>
-      <p>
-        On vous dépose partout : des rues tumultueuses de New York aux magnifiques plages de Bali.
-      </p>
-      <button class="bouton">JOUEZ MAINTENANT</button>
-    </div>
-  </header>
+        <header>
+            <div class="menu">
+                <img alt="Vue logo" class="logo img-fluid" src="@/assets/landscape.jpg" />
+                <div class="wrapper container">
+                    <nav class="row">
+                        <RouterLink class="nav-accueil col-12 col-md-6" to="/">GeoQuizz</RouterLink>
+                        <RouterLink class="col-12 col-md-6" to="/signin">Connexion</RouterLink>
+                    </nav>
+                </div>
+            </div>
+            <div class="header-desc container">
+                <h1 class="col-12 col-md-8">Explorez le monde</h1>
+                <p class="col-12 col-md-8">
+                    On vous dépose partout : des rues tumultueuses de New York aux magnifiques plages de Bali.
+                </p>
+                <button class="bouton col-12 col-md-4">JOUEZ MAINTENANT</button>
+            </div>
+        </header>
 
   <main>
     <RouterView />
@@ -37,6 +37,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Comfortaa', sans-serif;
+}
 @import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
 header {
   height: 700px;
@@ -71,6 +76,7 @@ header {
           border-radius: 30px;
           background-color: transparent;
           padding: 7px 12px;
+          width: auto;
         }
 
         .nav-accueil {
@@ -88,6 +94,7 @@ header {
     flex-direction: column;
     align-items: center;
     margin-top: 1OOpx;
+    text-align: center;
     position: relative;
 
     h1 {
@@ -109,7 +116,19 @@ header {
   text-transform: uppercase;
   padding: 10px 20px;
   font-weight: bold;
-  width: 20%;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+
+  @media (min-width: 992px) {
+    width: 30%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 20%;
+  }
 }
 </style>
 
