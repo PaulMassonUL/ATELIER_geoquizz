@@ -43,3 +43,13 @@ import('@/css/home.css')
     </article>
   </section>
 </template>
+
+<style lang="scss" scoped>
+main {
+  background-color: #393939;
+}
+
+* {
+  color: white;
+}
+</style>
