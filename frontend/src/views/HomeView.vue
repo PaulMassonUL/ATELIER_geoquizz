@@ -1,5 +1,4 @@
 <script>
-import('@/css/home.css')
 </script>
 
 <template>
