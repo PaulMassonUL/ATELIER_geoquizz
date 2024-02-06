@@ -13,6 +13,12 @@ export default {
   },
   methods: {
     signin() {
+      this.email = this.email.trim()
+      this.password = this.password.trim()
+      if (!this.email || !this.password) {
+        console.log('Veuillez remplir tous les champs')
+        return
+      }
       axios
         .post('http://localhost:3000/api/auth/signin', {
           email: this.email,
@@ -24,13 +30,13 @@ export default {
         .catch((error) => {
           console.log(error)
         })
-    }
+    },
   }
 }
 </script>
 
 <template>
-  <div>
+  <div id="form-container">
     <h1>Hello</h1>
     <p>Connectez-vous à votre compte</p>
     <form>
@@ -57,5 +63,17 @@ export default {
       </div>
       <button type="submit" class="btn btn-primary" @click.prevent="signin">Se connecter</button>
     </form>
+
+    <p>
+      Vous n'avez pas de compte ? <router-link to="/signup">Inscrivez-vous</router-link>
+    </p>
   </div>
 </template>
+
+<style lang="scss" scoped>
+#form-container {
+  border: 1px solid #000;
+  background-color: #f5f5f5;
+  padding: 1em;
+}
+</style>

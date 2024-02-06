@@ -12,7 +12,7 @@ export default {
 </script>
 
 <template>
-  <section class="container p-5">
+  <section class="container">
     <SigninComponent />
   </section>
 </template>
