@@ -1,6 +1,6 @@
 <?php
 
-use \geoquizz\quiz\app\actions\CreerGameAction;
+use geoquizz\quiz\app\actions\CreerGameAction;
 use Psr\Container\ContainerInterface;
 
 return [

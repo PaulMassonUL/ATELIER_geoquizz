@@ -1,8 +1,9 @@
 <?php
 
-namespace pizzashop\shop\domain\service\commande;
+namespace geoquizz\quiz\domain\service\game;
 
 class ServiceGameInvalidDataException extends \Exception
 {
+
     
 }
