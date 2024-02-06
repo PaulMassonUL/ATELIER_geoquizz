@@ -7,6 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+backend/directus.geoquizz/database
+backend/directus.geoquizz/uploads
+backend/directus.geoquizz/extensions
+
 node_modules
 .DS_Store
 dist
