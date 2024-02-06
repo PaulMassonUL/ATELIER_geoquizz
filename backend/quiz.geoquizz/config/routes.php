@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 use geoquizz\quiz\domain\middleware\Jwt;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 return function(\Slim\App $app):void {
 
@@ -13,7 +15,9 @@ return function(\Slim\App $app):void {
     $app->post('/game[/]', \geoquizz\quiz\app\actions\CreerGameAction::class);
         //->setName('creer_game')->add($JwtVerification);
 
-
-
+    $app->get("/", function (Request $rq, Response $rs, array $args) {
+        echo "bonjour";
+        return $rs->withStatus(200);
+    });
     
 };
