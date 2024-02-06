@@ -17,7 +17,7 @@ export default {
       this.email = this.email.trim()
       this.password = this.password.trim()
       if (!this.email || !this.password) {
-        this.error = 'Veiullez remplir tous les champs'
+        this.error = 'Veuillez remplir tous les champs.'
         return
       }
 
@@ -39,7 +39,7 @@ export default {
           this.$router.push('/')
         })
         .catch((error) => {
-          if (error.response.data.error) {
+          if (error.response && error.response.data && error.response.data.error) {
             this.error = error.response.data.error
             return
           }

@@ -1,9 +1,15 @@
 <script>
+import SignupComponent from '@/components/SignupComponent.vue'
+
 export default {
-  data() {
-    return {}
+  components: {
+    SignupComponent
   }
 }
 </script>
 
-<template></template>
+<template>
+  <section class="container mt-3">
+    <SignupComponent />
+  </section>
+</template>

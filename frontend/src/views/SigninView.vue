@@ -4,15 +4,12 @@ import SigninComponent from '@/components/SigninComponent.vue'
 export default {
   components: {
     SigninComponent
-  },
-  data() {
-    return {}
   }
 }
 </script>
 
 <template>
-  <section class="container">
+  <section class="container mt-3">
     <SigninComponent />
   </section>
 </template>

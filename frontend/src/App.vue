@@ -11,24 +11,16 @@ export default {
 </script>
 
 <template>
-        <header>
-            <div class="menu">
-                <img alt="Vue logo" class="logo img-fluid" src="@/assets/landscape.jpg" />
-                <div class="wrapper container">
-                    <nav class="row">
-                        <RouterLink class="nav-accueil col-12 col-md-6" to="/">GeoQuizz</RouterLink>
-                        <RouterLink class="col-12 col-md-6" to="/signin">Connexion</RouterLink>
-                    </nav>
-                </div>
-            </div>
-            <div class="header-desc container">
-                <h1 class="col-12 col-md-8">Explorez le monde</h1>
-                <p class="col-12 col-md-8">
-                    On vous dépose partout : des rues tumultueuses de New York aux magnifiques plages de Bali.
-                </p>
-                <button class="bouton col-12 col-md-4">JOUEZ MAINTENANT</button>
-            </div>
-        </header>
+  <header>
+    <div class="menu">
+      <div class="wrapper">
+        <nav>
+          <RouterLink class="nav-accueil" to="/">GeoQuizz</RouterLink>
+          <RouterLink to="/signin">Connexion</RouterLink>
+        </nav>
+      </div>
+    </div>
+  </header>
 
   <main>
     <RouterView />
@@ -36,26 +28,18 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Comfortaa', sans-serif;
-}
 @import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
-header {
-  height: 700px;
-  .menu {
-    margin-bottom: 200px;
 
-    .logo {
-      width: 100%;
-      position: absolute;
-      z-index: -1;
-      height: 700px;
-    }
+header {
+  box-shadow: 0px 0px 10px 0px black;
+
+  .menu {
+    height: fit-content;
+    background: rgb(98, 98, 98);
+    background: radial-gradient(circle, rgba(98, 98, 98, 1) 0%, rgba(80, 80, 80, 1) 50%, rgba(54, 54, 54, 1) 100%);
 
     .wrapper {
-      width: 80%;
+      width: 90%;
       margin: auto;
 
       nav {
@@ -75,7 +59,6 @@ header {
           border-radius: 30px;
           background-color: transparent;
           padding: 7px 12px;
-          width: auto;
         }
 
         .nav-accueil {
@@ -85,48 +68,5 @@ header {
     }
   }
 
-  .header-desc {
-    font-family: 'Knewave', sans-serif;
-    letter-spacing: 1px;
-    font-weight: 200;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1OOpx;
-    text-align: center;
-    position: relative;
-
-    h1 {
-      color: white;
-      margin-bottom: 30px;
-    }
-
-    p {
-      color: white;
-      margin-bottom: 50px;
-    }
-  }
-}
-.bouton {
-  border: 2px solid white;
-  border-radius: 20px;
-  color: white;
-  background-color: #327cb1;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  font-weight: bold;
-  width: 100%;
-
-  @media (min-width: 768px) {
-    width: 50%;
-  }
-
-  @media (min-width: 992px) {
-    width: 30%;
-  }
-
-  @media (min-width: 1200px) {
-    width: 20%;
-  }
 }
 </style>

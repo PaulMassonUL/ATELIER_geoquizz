@@ -51,7 +51,7 @@ class AuthProvider implements AuthProviderInterface
     {
         $user = User::find($email);
         if (!is_null($user)) {
-            throw new AuthProviderInvalidCredentialsException("User already exists");
+            throw new AuthProviderInvalidCredentialsException("This email is already used");
         }
 
         $user = new User();
