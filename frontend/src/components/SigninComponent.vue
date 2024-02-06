@@ -30,7 +30,6 @@ export default {
 </script>
 
 <template>
-  <!--  connection form with bootstrap -->
   <div>
     <h1>Hello</h1>
     <p>Connectez-vous à votre compte</p>
