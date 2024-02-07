@@ -26,10 +26,10 @@
         </article>
 
         <article class="row align-items-center p-5">
-          <div class="col-3 offset-2">
+          <div class="col-3 offset-1">
             <img src="@/assets/cercleAmis.png" alt="cercle d'amis" width="200" height="200" />
           </div>
-          <div class="col-6 offset-1">
+          <div class="col-6 offset-2">
             <h2>Jouez avec vos amis</h2>
             <p>
               Mettez vos compétences à l'épreuve contre vos amis et votre famille. Créez votre
