@@ -7,7 +7,6 @@ use geoquizz\quiz\domain\dto\GameDTO;
 class Game extends \Illuminate\Database\Eloquent\Model
 {
 
-    protected $connection = 'quiz';
     protected $table = 'game';
     protected $primaryKey = 'id';
     public $timestamps = true;

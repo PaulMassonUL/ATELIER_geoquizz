@@ -10,5 +10,6 @@
 2) Création et peuplement de la BD
 ```bash
   docker compose exec api.geo-quizz php bin/console db:create
-```
-3) 
+  docker compose exec api.geo-quizz php bin/console db:populate
+``` 
+

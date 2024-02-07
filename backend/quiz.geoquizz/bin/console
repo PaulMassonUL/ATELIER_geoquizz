@@ -15,6 +15,7 @@ $console = new Application();
 
 try {
     $console->add($container->get(\geoquizz\quiz\console\CreateDatabaseCommand::class));
+    $console->add($container->get(\geoquizz\quiz\console\PopulateDatabaseCommand::class));
     $console->run();
 } catch (Throwable $e) {
     echo $e->getMessage();

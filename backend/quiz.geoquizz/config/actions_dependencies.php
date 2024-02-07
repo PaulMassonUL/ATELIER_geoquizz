@@ -19,5 +19,8 @@ return [
     },
     \geoquizz\quiz\console\CreateDatabaseCommand::class => function (ContainerInterface $container) {
         return new CreateDatabaseCommand($container->get('db'));
+    },
+    \geoquizz\quiz\console\PopulateDatabaseCommand::class => function (ContainerInterface $container) {
+        return new \geoquizz\quiz\console\PopulateDatabaseCommand($container->get('db'));
     }
 ];

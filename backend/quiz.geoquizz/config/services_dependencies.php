@@ -18,7 +18,7 @@ return [
         return new \geoquizz\quiz\domain\service\serie\ServiceSerie($c->get('serie.api.base_uri'));
     },
 
-    'db' => function (ContainerInterface $container) {
+    'db' => function () {
         $capsule = new \Illuminate\Database\Capsule\Manager();
         $capsule->addConnection(parse_ini_file("quiz.db.ini"));
         $capsule->setAsGlobal();

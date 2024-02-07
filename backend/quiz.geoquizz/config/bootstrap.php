@@ -15,8 +15,7 @@ $app = $c->get(\Slim\App::class);
 
 $app->add(new Cors());
 
-$app->add(\geoquizz\quiz\console\CreateDatabaseCommand::class);
-//$app->add($c->get(\geoquizz\quiz\console\populateDatabaseCommand::class));
+$c->get('db');
 
 $errorMiddleware = $app->addErrorMiddleware(true, false, false);
 $errorHandler = $errorMiddleware->getDefaultErrorHandler();
