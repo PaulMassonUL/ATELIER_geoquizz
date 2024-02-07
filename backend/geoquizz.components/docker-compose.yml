@@ -64,39 +64,6 @@ services:
     volumes:
       - ../auth.geoquizz/sql:/var/sql
 
-  directus:
-    image: directus/directus:latest
-    ports:
-      - '11055:8055'
-    restart: on-failure
-    volumes:
-      - ../directus.geoquizz/uploads:/directus/uploads
-      - ../directus.geoquizz/extensions:/directus/extensions
-#      - ../directus.geoquizz/database:/directus/database
-      # If you want to load extensions from the host
-      # - ./extensions:/directus/extensions
-    env_file: ./directus.env
-    depends_on:
-      - directus.db
-    networks:
-      - geo-quizz.net
-
-
-  directus.db:
-    image: postgis/postgis:13-master
-    volumes:
-      - ../directus.geoquizz/database:/var/lib/postgresql/data
-    env_file: ./postgis.env
-    networks:
-      - geo-quizz.net
-
-      # Make sure to set this in production
-      # (see https://docs.directus.io/self-hosted/config-options#general)
-      # PUBLIC_URL: "https://directus.example.com"
-
-    # Environment variables can also be defined in a file (for example `.env`):
-    # env_file: directus.env
-
   rabbitmq:
     image: rabbitmq:3-management
     ports:

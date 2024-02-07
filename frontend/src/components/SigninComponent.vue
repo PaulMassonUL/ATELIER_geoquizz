@@ -17,7 +17,7 @@ export default {
       this.email = this.email.trim()
       this.password = this.password.trim()
       if (!this.email || !this.password) {
-        this.error = 'Veiullez remplir tous les champs'
+        this.error = 'Veuillez remplir tous les champs.'
         return
       }
 
@@ -39,7 +39,7 @@ export default {
           this.$router.push('/')
         })
         .catch((error) => {
-          if (error.response.data.error) {
+          if (error.response && error.response.data && error.response.data.error) {
             this.error = error.response.data.error
             return
           }
@@ -112,7 +112,6 @@ export default {
     border-radius: 10px;
     box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
     transition: all .3s ease-in-out;
-    cursor: pointer;
     overflow: hidden;
 
     .card-title {

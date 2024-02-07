@@ -2,6 +2,7 @@
 
 use geoquizz\quiz\app\actions\CreerGameAction;
 use geoquizz\quiz\console\CreateDatabaseCommand;
+use geoquizz\quiz\app\actions\GetGamesAction;
 use Psr\Container\ContainerInterface;
 
 return [
@@ -22,5 +23,10 @@ return [
     },
     \geoquizz\quiz\console\PopulateDatabaseCommand::class => function (ContainerInterface $container) {
         return new \geoquizz\quiz\console\PopulateDatabaseCommand($container->get('db'));
+    },
+
+    GetGamesAction::class => function (ContainerInterface $container) {
+        return new GetGamesAction($container->get('game.service'));
     }
+
 ];

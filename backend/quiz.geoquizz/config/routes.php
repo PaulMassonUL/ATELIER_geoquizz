@@ -9,7 +9,12 @@ return function(\Slim\App $app):void {
 
     $JwtVerification = new Jwt($app->getContainer()->get('auth.api.base_uri'));
 
-    $app->get('/series[/]', \geoquizz\quiz\app\actions\GetSeriesAction::class);
+    $app->options('/{routes:.+}', function ($request, $response) {
+            return $response;
+        });
+
+
+    $app->get('/games[/]', \geoquizz\quiz\app\actions\GetGamesAction::class);
     //->setName('series')->add($JwtVerification);
 
     $app->post('/game[/]', \geoquizz\quiz\app\actions\CreerGameAction::class);
