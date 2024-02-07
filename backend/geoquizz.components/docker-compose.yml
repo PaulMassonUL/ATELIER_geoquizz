@@ -64,19 +64,18 @@ services:
     volumes:
       - ../auth.geoquizz/sql:/var/sql
 
-  directus:
-    image: directus/directus:latest
+  rabbitmq:
+    image: rabbitmq:3-management
     ports:
-      - '11055:8055'
-    restart: on-failure
-    volumes:
-      - ../directus.geoquizz/uploads:/directus/uploads
-      - ../directus.geoquizz/extensions:/directus/extensions
-#      - ../directus.geoquizz/database:/directus/database
-      # If you want to load extensions from the host
-      # - ./extensions:/directus/extensions
-    env_file: ./directus.env
-    depends_on:
-      - directus.db
+      - '15672:15672'
+      - '5672:5672'
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 8s
+      timeout: 30s
+      retries: 3
     networks:
       - geo-quizz.net
+    volumes:
+      - ../rabbitmq.geoquizz:/var/lib/rabbitmq
+    env_file: ./rab.env
