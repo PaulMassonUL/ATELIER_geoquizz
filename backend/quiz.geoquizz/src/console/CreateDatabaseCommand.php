@@ -38,8 +38,12 @@ CREATE TABLE `game`
     `token` varchar(255) NOT NULL,
     `id_serie` varchar(255) NOT NULL,
     `sequence` JSON NOT NULL,
+    `isPublic` BOOLEAN NOT NULL DEFAULT 0,
+    `level` int(11) NOT NULL,
+    `id_user` varchar(255) NOT NULL,
     `created_at` datetime NOT NULL,
     `updated_at` datetime NOT NULL,
+
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");

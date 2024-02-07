@@ -47,6 +47,9 @@ class PopulateDatabaseCommand extends Command
         $game->token = $this->faker->linuxPlatformToken;
         $game->id_serie = $this->faker->biasedNumberBetween(1, 15);
         $game->sequence = $this->createSequence();
+        $game->isPublic = $this->faker->boolean;
+        $game->level = $this->faker->biasedNumberBetween(1, 10);
+        $game->id_user = $this->faker->biasedNumberBetween(1, 50);
         $game->save();
     }
 
