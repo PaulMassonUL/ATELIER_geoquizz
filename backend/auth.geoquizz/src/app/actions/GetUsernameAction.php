@@ -19,7 +19,7 @@ class GetUsernameAction extends Action
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         try {
-            $data = $rq->getParsedBody();
+            $data = $rq->getQueryParams();
             if (!isset($data['id_user'])) {
                 $rs->getBody()->write(json_encode(['error' => 'id_user manquant']));
                 return $rs->withStatus(400);
