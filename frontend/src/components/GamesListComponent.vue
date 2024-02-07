@@ -12,18 +12,19 @@ export default {
   methods: {
     fetchGames() {
       this.loading = true
-      axios.get('http://localhost:2080/games')
-          .then(response => {
-            this.games = response.data
-            if (this.games.length === 0) this.message = 'Aucune partie trouvée. Créez-en une !'
-          })
-          .catch(error => {
-            console.error(error)
-            this.message = 'Impossible de charger les parties. Veuillez réessayer plus tard.'
-          })
-          .finally(() => {
-            this.loading = false
-          })
+      axios
+        .get('http://localhost:2080/games')
+        .then((response) => {
+          this.games = response.data
+          if (this.games.length === 0) this.message = 'Aucune partie trouvée. Créez-en une !'
+        })
+        .catch((error) => {
+          console.error(error)
+          this.message = 'Impossible de charger les parties. Veuillez réessayer plus tard.'
+        })
+        .finally(() => {
+          this.loading = false
+        })
     }
   },
   created() {

@@ -34,14 +34,11 @@ export default {
       this.loading = true
 
       axios
-        .post(
-          'http://localhost:2780/api/users/signup',
-          {
-            email: this.email,
-            password: this.password,
-            username: this.username
-          }
-        )
+        .post('http://localhost:2780/api/users/signup', {
+          email: this.email,
+          password: this.password,
+          username: this.username
+        })
         .then(() => {
           this.$router.push('/signin')
         })
@@ -68,13 +65,7 @@ export default {
     <form>
       <div class="mb-3">
         <label for="emailInput" class="form-label">Adresse email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="emailInput"
-          v-model="email"
-          required
-        />
+        <input type="email" class="form-control" id="emailInput" v-model="email" required />
       </div>
       <div class="mb-3">
         <label for="passwordInput" class="form-label">Mot de passe</label>
@@ -87,19 +78,18 @@ export default {
         />
       </div>
       <div class="mb-3">
-        <label for="passwordConfirmationInput" class="form-label"
-          >Confirmer le mot de passe</label>
-        <input type="password" class="form-control" id="passwordConfirmationInput" v-model="passwordConfirmation" required />
+        <label for="passwordConfirmationInput" class="form-label">Confirmer le mot de passe</label>
+        <input
+          type="password"
+          class="form-control"
+          id="passwordConfirmationInput"
+          v-model="passwordConfirmation"
+          required
+        />
       </div>
       <div class="mb-3">
         <label for="usernameInput" class="form-label">Nom d'utilisateur</label>
-        <input
-          type="text"
-          class="form-control"
-          id="usernameInput"
-          v-model="username"
-          required
-        />
+        <input type="text" class="form-control" id="usernameInput" v-model="username" required />
       </div>
       <button
         type="submit"

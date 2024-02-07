@@ -16,6 +16,6 @@ export default {
       </RouterLink>
     </div>
 
-    <GamesList/>
+    <GamesList />
   </section>
 </template>
