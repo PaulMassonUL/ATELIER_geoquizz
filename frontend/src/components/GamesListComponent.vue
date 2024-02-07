@@ -7,7 +7,7 @@ export default {
       games: [],
       loading: false,
       message: '',
-      users: ''
+      user: ''
     }
   },
   methods: {
@@ -28,10 +28,10 @@ export default {
     },
     fetchUser(idUser) {
       this.loading = true
-      axios.post('localhost:2780/api/users/username', {id_user: idUser})
+      axios.get(`http://localhost:2780/api/users/username?id_user=${idUser}`)
           .then(response => {
-            this.users = response.data
-            if (this.users.length === 0) this.message = 'Aucun utilisateur trouvé. Créez-en un !'
+            this.user = response.data.username
+            if (!this.user) this.message = 'Aucun utilisateur trouvé. Créez-en un !'
           })
           .catch(error => {
             console.error(error)
@@ -40,24 +40,11 @@ export default {
           .finally(() => {
             this.loading = false
           })
-      axios
-        .get('http://localhost:2080/games')
-        .then((response) => {
-          this.games = response.data
-          if (this.games.length === 0) this.message = 'Aucune partie trouvée. Créez-en une !'
-        })
-        .catch((error) => {
-          console.error(error)
-          this.message = 'Impossible de charger les parties. Veuillez réessayer plus tard.'
-        })
-        .finally(() => {
-          this.loading = false
-        })
     }
   },
   created() {
     this.fetchGames()
-    this.fetchUser(1);
+    this.fetchUser('AlixPerrot@free.fr');
   }
 }
 </script>
@@ -78,8 +65,8 @@ export default {
           <div class="card-body">
             <h2 class="card-title">{{ game.token }}</h2>
             <p class="card-text">Niveau : {{ game.level }}</p>
+            <p class="card-text">Créée par : {{ user }}</p>
             <p class="card-text">Créée le {{ game.created_at }}</p>
-            <p class="card-text" @v-model="">Créateur : {{}}</p>
           </div>
         </div>
       </div>
