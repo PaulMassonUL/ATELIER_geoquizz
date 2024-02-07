@@ -1,10 +1,13 @@
 <script>
 import axios from 'axios'
+import { format, parseISO } from 'date-fns'
+import { fr } from 'date-fns/locale'
 
 export default {
   data() {
     return {
       games: [],
+      series: [],
       loading: false,
       message: '',
       user: ''
@@ -26,11 +29,11 @@ export default {
             this.loading = false
           })
     },
-    fetchSerie(id) {
+    fetchSerie() {
       this.loading = true
-      axios.get(`http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie/${id}`)
+      axios.get(`http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie`)
           .then(response => {
-            this.series = response.data
+            this.series = response.data.data
           })
           .catch(error => {
             console.error(error)
@@ -40,6 +43,15 @@ export default {
             this.loading = false
           })
     },
+    getSeriesById(game) {
+      const serie = this.series.find(serie => serie.id == game.id_serie);
+      if (!serie) {
+        console.error(`Serie avec l'id ${game.id_serie} non trouvée`);
+        return null;
+      }
+
+      return serie;
+    },
     checkDifficulty(value) {
       if (value === 1) {
         return '<span class="text-success">Facile</span>';
@@ -48,10 +60,15 @@ export default {
       } else {
         return '<span class="text-danger">Difficile</span>';
       }
+    },
+    formatDate(dateString) {
+      const date = parseISO(dateString)
+      return format(date, 'dd/MM/yyyy \'à\' HH:mm:ss', { locale: fr })
     }
   },
   created() {
     this.fetchGames()
+    this.fetchSerie()
   }
 }
 </script>
@@ -67,13 +84,17 @@ export default {
     <div v-else>
       <div v-if="message" id="message" class="mt-5">{{ message }}</div>
       <div id="games-list" v-else>
-        <div v-for="game in games" :key="game.id" class="card mb-3">
-
-          <div class="card-body">
-            <h2 class="card-title">Ville : {{ game.token }}</h2>
-            <p class="card-text">Niveau : <span v-html="checkDifficulty(game.level)"></span></p>            <p class="card-text">Créer par : {{ game.id_user }}</p>
-            <p class="card-text">Créer le {{ game.created_at }}</p>
-            <button class="btn btn-success">Lancer la partie ►</button>
+        <div class="row">
+          <div v-for="game in games" :key="game.id" class="col-md-3 col-sm-6">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h2 class="card-title">Ville : {{ getSeriesById(game).name }}</h2>
+                <p class="card-text">Niveau : <span v-html="checkDifficulty(game.level)"></span></p>
+                <p class="card-text">Créer par : {{ game.id_user }}</p>
+                <p class="card-text">Créer le {{ formatDate(game.created_at) }}</p>
+                <RouterLink id="bouton" to="/play" class="btn btn-success">Lancer la partie ►</RouterLink>
+              </div>
+            </div>
           </div>
         </div>
       </div>

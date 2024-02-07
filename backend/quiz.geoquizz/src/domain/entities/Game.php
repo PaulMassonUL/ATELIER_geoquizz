@@ -22,7 +22,6 @@ class Game extends \Illuminate\Database\Eloquent\Model
     public $timestamps = true;
     public $fillable = ['id','token', 'id_serie', 'sequence','level','isPublic', 'state', 'id_user'];
 
-
     public function toDTO() : GameDTO {
         $g = new GameDTO($this->id_serie, $this->id_user, $this->level, $this->isPublic);
         $g->id = $this->id;
