@@ -26,25 +26,32 @@ export default {
             this.loading = false
           })
     },
-    fetchUser(idUser) {
+    fetchSerie(id) {
       this.loading = true
-      axios.get(`http://localhost:2780/api/users/username?id_user=${idUser}`)
+      axios.get(`http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie/${id}`)
           .then(response => {
-            this.user = response.data.username
-            if (!this.user) this.message = 'Aucun utilisateur trouvé. Créez-en un !'
+            this.series = response.data
           })
           .catch(error => {
             console.error(error)
-            this.message = 'Impossible de charger les utilisateurs. Veuillez réessayer plus tard.'
+            this.message = 'Impossible de charger la série. Veuillez réessayer plus tard.'
           })
           .finally(() => {
             this.loading = false
           })
+    },
+    checkDifficulty(value) {
+      if (value === 1) {
+        return '<span class="text-success">Facile</span>';
+      } else if (value === 2) {
+        return '<span class="text-warning">Moyen</span>';
+      } else {
+        return '<span class="text-danger">Difficile</span>';
+      }
     }
   },
   created() {
     this.fetchGames()
-    this.fetchUser('AlixPerrot@free.fr');
   }
 }
 </script>
@@ -63,10 +70,10 @@ export default {
         <div v-for="game in games" :key="game.id" class="card mb-3">
 
           <div class="card-body">
-            <h2 class="card-title">{{ game.token }}</h2>
-            <p class="card-text">Niveau : {{ game.level }}</p>
-            <p class="card-text">Créée par : {{ user }}</p>
-            <p class="card-text">Créée le {{ game.created_at }}</p>
+            <h2 class="card-title">Ville : {{ game.token }}</h2>
+            <p class="card-text">Niveau : <span v-html="checkDifficulty(game.level)"></span></p>            <p class="card-text">Créer par : {{ game.id_user }}</p>
+            <p class="card-text">Créer le {{ game.created_at }}</p>
+            <button class="btn btn-success">Lancer la partie ►</button>
           </div>
         </div>
       </div>
