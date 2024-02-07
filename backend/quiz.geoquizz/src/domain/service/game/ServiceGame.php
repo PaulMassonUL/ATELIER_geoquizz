@@ -49,14 +49,17 @@ class ServiceGame implements iGame
 
     }
 
-    public function getGames(): array
+
+    public function getGamesPublic(): array
     {
-        $games = Game::all();
+        $games = Game::where('isPublic', 1)->get();
         $gamesDTO = [];
         foreach ($games as $game) {
             $gamesDTO[] = $game->toDTO();
         }
         return $gamesDTO;
     }
+
+
 
 }

@@ -1,5 +1,6 @@
 <?php
 
+use geoquizz\auth\app\actions\GetUsernameAction;
 use geoquizz\auth\app\actions\RefreshAction;
 use geoquizz\auth\app\actions\SigninAction;
 use geoquizz\auth\app\actions\SignupAction;
@@ -23,5 +24,9 @@ return [
     RefreshAction::class => function (ContainerInterface $container) {
         return new RefreshAction($container->get('AuthService'));
     },
+
+    GetUsernameAction::class => function (ContainerInterface $container) {
+        return new GetUsernameAction($container->get('AuthService'));
+    }
 
 ];

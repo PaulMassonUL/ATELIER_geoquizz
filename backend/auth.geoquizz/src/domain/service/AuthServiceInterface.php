@@ -15,4 +15,8 @@ interface AuthServiceInterface
     public function validate(TokenDTO $t): UserDTO;
 
     public function refresh(TokenDTO $t): TokenDTO;
+
+    public function getUsername(string $email): string;
+
+
 }

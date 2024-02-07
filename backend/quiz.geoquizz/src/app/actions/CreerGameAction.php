@@ -30,7 +30,7 @@ class CreerGameAction extends Action
         }
 
         try {
-            $gameDTO = new GameDTO($data['id_serie'], $data['level'], $data['isPublic'], $data['id_user']);
+            $gameDTO = new GameDTO($data['id_serie'], $data['id_user'], $data['level'], $data['isPublic']);
             $game = $this->serviceGame->creerGame($gameDTO);
 
             $donnees = [

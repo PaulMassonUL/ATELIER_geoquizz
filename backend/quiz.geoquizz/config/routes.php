@@ -14,7 +14,7 @@ return function(\Slim\App $app):void {
         });
 
 
-    $app->get('/games[/]', \geoquizz\quiz\app\actions\GetGamesAction::class);
+    $app->get('/games[/]', \geoquizz\quiz\app\actions\GetGamesPublicAction::class);
     //->setName('series')->add($JwtVerification);
 
     $app->post('/game[/]', \geoquizz\quiz\app\actions\CreerGameAction::class);

@@ -5,6 +5,7 @@ namespace geoquizz\auth\domain\service;
 use geoquizz\auth\domain\dto\CredentialsDTO;
 use geoquizz\auth\domain\dto\TokenDTO;
 use geoquizz\auth\domain\dto\UserDTO;
+use geoquizz\auth\domain\entities\User;
 use geoquizz\auth\domain\manager\JwtManagerInterface;
 use geoquizz\auth\domain\manager\JwtManagerExpiredTokenException;
 use geoquizz\auth\domain\manager\JwtManagerInvalidTokenException;
@@ -87,5 +88,11 @@ class AuthService implements AuthServiceInterface
         $user = $this->authProvider->getAuthenticatedUser();
 
         return new TokenDTO($this->jwtManager->create($user), $user['refresh_token']);
+    }
+
+    //obtenir le username avec l'email du User
+    public function getUsername(string $email): string
+    {
+        return User::where('email', $email)->first()->username;
     }
 }

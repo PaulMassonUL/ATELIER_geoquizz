@@ -8,5 +8,5 @@ interface iGame
 {
     function creerGame(GameDTO $g) : GameDTO;
 
-    function getGames() : array;
+    function GetGamesPublic() : array;
 }
