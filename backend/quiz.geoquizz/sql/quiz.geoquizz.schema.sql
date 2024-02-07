@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS `played`;
 
 CREATE TABLE `game`
 (
-    `id`   varchar(64)  NOT NULL,
+    `id`   varchar(255)  NOT NULL,
     `token` varchar(255) NOT NULL,
     `id_serie` varchar(255) NOT NULL,
     `sequence` JSON NOT NULL,

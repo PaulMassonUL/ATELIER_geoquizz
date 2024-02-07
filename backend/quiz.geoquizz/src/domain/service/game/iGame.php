@@ -6,7 +6,7 @@ use geoquizz\quiz\domain\dto\GameDTO;
 
 interface iGame
 {
-    function creerGame(GameDTO $g) : GameDTO;
+    function creerGame(GameDTO $g) : array;
 
     function GetGamesPublic() : array;
 }

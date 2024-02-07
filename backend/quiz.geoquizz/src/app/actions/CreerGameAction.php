@@ -24,26 +24,29 @@ class CreerGameAction extends Action
         // Récupérez les données JSON du corps de la requête
         $data = $rq->getParsedBody();
 
-        if (!isset($data['id_serie'])) {
-            $rs->getBody()->write(json_encode(['error' => 'id_serie manquant']));
+        if (!isset($data['id_serie']) || !isset($data['id_user']) || !isset($data['level']) || !isset($data['isPublic']))  {
+            $rs->getBody()->write(json_encode(['error' => 'missing parameters (id_serie, id_user, level, isPublic)']));
             return $rs->withStatus(400);
         }
 
         try {
             $gameDTO = new GameDTO($data['id_serie'], $data['id_user'], $data['level'], $data['isPublic']);
-            $game = $this->serviceGame->creerGame($gameDTO);
+            $result = $this->serviceGame->creerGame($gameDTO);
+
+            $game = $result['game'];
+            $id = $result['id'];
 
             $donnees = [
-                'id' => $game->id,
+                'id' => $id,
                 'token' => $game->token,
             ];
 
             $rs->getBody()->write(json_encode($donnees));
             return $rs->withHeader('Content-Type', 'application/json;charset=utf-8')->withHeader('Location', '/game/' . $game->id)->withStatus(201);
 
-        } catch (ServiceGameInvalidDataException $e) {
-            $rs->getBody()->write(json_encode(['error' => 'id_serie invalide']));
-            return $rs->withStatus(400);
+        } catch (Exception $e) {
+            $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));
+            return $rs->withStatus(500);
         }
 
     }

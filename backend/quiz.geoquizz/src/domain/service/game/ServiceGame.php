@@ -2,6 +2,7 @@
 
 namespace geoquizz\quiz\domain\service\game;
 
+use Exception;
 use geoquizz\quiz\domain\manager\JwtManager;
 use geoquizz\quiz\domain\dto\GameDTO;
 use geoquizz\quiz\domain\entities\Game;
@@ -23,18 +24,19 @@ class ServiceGame implements iGame
 
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function creerGame(GameDTO $g): GameDTO
+    public function creerGame(GameDTO $g): array
     {
         $jwt = new JwtManager("secret");
         $jwt->setIssuer($_SERVER['HTTP_HOST']);
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::uuid4()->toString();
+
         $game = Game::create([
-            'id' => $uuid->toString(),
+            'id' => $uuid,
             'token' => $jwt->create([
-                'id' => $uuid->toString(),
+                'id' => $uuid,
                 'id_serie' => $g->id_serie,
             ]),
             'id_serie' => $g->id_serie,
@@ -46,8 +48,7 @@ class ServiceGame implements iGame
         ]);
 
         $this->logger->info("Game $uuid créée");
-        return $game->toDTO();
-
+        return ['game' => $game->toDTO(), 'id' => $uuid];
     }
 
 
