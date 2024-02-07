@@ -16,6 +16,7 @@ CREATE TABLE `game`
     `sequence` JSON NOT NULL,
     `isPublic` BOOLEAN NOT NULL DEFAULT 0,
     `level` int(11) NOT NULL,
+    `state` int(11) NOT NULL,
     `id_user` varchar(255) NOT NULL,
     `created_at` datetime NOT NULL,
     `updated_at` datetime NOT NULL,

@@ -36,13 +36,6 @@ class CreerGameAction extends Action
             $donnees = [
                 'id' => $game->id,
                 'token' => $game->token,
-                'id_serie' => $game->id_serie,
-                'sequence' => $game->sequence,
-                'created_at' => $game->created_at,
-                'updated_at' => $game->updated_at,
-                'level' => $game->level,
-                'isPublic' => $game->isPublic,
-                'id_user' => $game->id_user
             ];
 
             $rs->getBody()->write(json_encode($donnees));

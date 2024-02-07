@@ -14,6 +14,8 @@ class GameDTO extends \geoquizz\quiz\domain\dto\DTO
     public string $sequence;
     public bool $isPublic = false;
     public int $level;
+
+    public int $state;
     public string $id_user;
     public string $created_at;
     public string $updated_at;

@@ -39,6 +39,7 @@ class ServiceGame implements iGame
             ]),
             'id_serie' => $g->id_serie,
             'sequence' => $this->serviceSerie->sequenceByIdSerie($g->id_serie),
+            'state' => Game::ETAT_CREE,
             'level' => $g->level,
             'isPublic' => $g->isPublic,
             'id_user' => $g->id_user
