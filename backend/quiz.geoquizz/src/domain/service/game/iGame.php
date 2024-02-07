@@ -9,4 +9,6 @@ interface iGame
     function creerGame(GameDTO $g) : array;
 
     function GetGamesPublic() : array;
+
+    function getGameById($id) : GameDTO;
 }

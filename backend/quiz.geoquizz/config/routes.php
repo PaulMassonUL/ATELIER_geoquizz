@@ -1,11 +1,15 @@
 <?php
 declare(strict_types=1);
 
+use geoquizz\quiz\app\actions\CreerGameAction;
+use geoquizz\quiz\app\actions\GetGameByIdAction;
+use geoquizz\quiz\app\actions\GetGamesPublicAction;
 use geoquizz\quiz\domain\middleware\Jwt;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\App;
 
-return function(\Slim\App $app):void {
+return function(App $app):void {
 
     $JwtVerification = new Jwt($app->getContainer()->get('auth.api.base_uri'));
 
@@ -13,12 +17,14 @@ return function(\Slim\App $app):void {
             return $response;
         });
 
-
-    $app->get('/games[/]', \geoquizz\quiz\app\actions\GetGamesPublicAction::class);
+    $app->get('/games[/]', GetGamesPublicAction::class);
     //->setName('series')->add($JwtVerification);
 
-    $app->post('/game[/]', \geoquizz\quiz\app\actions\CreerGameAction::class);
+    $app->post('/game[/]', CreerGameAction::class);
         //->setName('creer_game')->add($JwtVerification);
+
+    $app->get('/games/{id}[/]', GetGameByIdAction::class);
+        //->setName('game')->add($JwtVerification);
 
     $app->get("/", function (Request $rq, Response $rs, array $args) {
         echo "bonjour";

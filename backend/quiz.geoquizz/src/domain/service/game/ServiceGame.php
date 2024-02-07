@@ -62,7 +62,7 @@ class ServiceGame implements iGame
         return $gamesDTO;
     }
 
-    public function getGameById($id): array
+    public function getGameById($id): GameDTO
     {
         $game = Game::where('id', $id)->first();
         return $game->toDTO();
