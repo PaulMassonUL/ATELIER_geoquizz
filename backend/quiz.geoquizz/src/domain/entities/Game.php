@@ -17,6 +17,8 @@ class Game extends \Illuminate\Database\Eloquent\Model
 
     protected $table = 'game';
     protected $primaryKey = 'id';
+    public $keyType = 'string';
+    public $incrementing = false;
     public $timestamps = true;
     public $fillable = ['id','token', 'id_serie', 'sequence','level','isPublic', 'state', 'id_user'];
 
