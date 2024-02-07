@@ -20,7 +20,6 @@
               niveaux.
             </p>
           </div>
-          tumultueuses
           <div class="col-3 offset-2">
             <img src="@/assets/planete.png" alt="planete" width="200" height="200" />
           </div>
