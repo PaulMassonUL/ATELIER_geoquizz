@@ -20,10 +20,10 @@ return [
 
     'db' => function (ContainerInterface $container) {
         $capsule = new \Illuminate\Database\Capsule\Manager();
-
-        $capsule->addConnection(parse_ini_file("quiz.db.ini"), 'quiz');
+        $capsule->addConnection(parse_ini_file("quiz.db.ini"));
         $capsule->setAsGlobal();
         $capsule->bootEloquent();
+        return $capsule;
     }
 
 ];

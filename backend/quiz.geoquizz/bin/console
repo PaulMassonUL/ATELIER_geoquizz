@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console\Application;
+
+require __DIR__.'/../vendor/autoload.php';
+
+
+$container = (new \DI\ContainerBuilder())->addDefinitions(__DIR__ . '/../config/settings.php');
+$container->addDefinitions(__DIR__ . '/../config/services_dependencies.php');
+$container->addDefinitions(__DIR__ . '/../config/actions_dependencies.php');
+
+$container = $container->build();
+$console = new Application();
+
+try {
+    $console->add($container->get(\geoquizz\quiz\console\CreateDatabaseCommand::class));
+    $console->run();
+} catch (Throwable $e) {
+    echo $e->getMessage();
+    echo $e->getTraceAsString();
+
+}
+

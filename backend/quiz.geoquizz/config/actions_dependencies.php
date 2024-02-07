@@ -12,13 +12,12 @@ return [
 
     \Slim\App::class => function (ContainerInterface $container)
     {
-        $container->get('db');
         $app = \Slim\Factory\AppFactory::createFromContainer($container);
         $app->addRoutingMiddleware();
         $app->addBodyParsingMiddleware();
         return $app;
     },
     \geoquizz\quiz\console\CreateDatabaseCommand::class => function (ContainerInterface $container) {
-        return new CreateDatabaseCommand($container->get(\Slim\App::class));
+        return new CreateDatabaseCommand($container->get('db'));
     }
 ];
