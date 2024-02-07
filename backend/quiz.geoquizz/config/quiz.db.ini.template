@@ -1,7 +1,7 @@
 connection=quiz
 driver=mysql
-username=geo_quizz
-password=geo_quizz
+username=
+password=
 host=geo.quizz.db
 database=geo_quizz
 charset=utf8
