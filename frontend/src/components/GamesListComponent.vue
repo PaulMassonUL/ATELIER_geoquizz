@@ -6,12 +6,40 @@ export default {
     return {
       games: [],
       loading: false,
-      message: ''
+      message: '',
+      users: ''
     }
   },
   methods: {
     fetchGames() {
       this.loading = true
+      axios.get('http://localhost:2080/games')
+          .then(response => {
+            this.games = response.data
+            if (this.games.length === 0) this.message = 'Aucune partie trouvée. Créez-en une !'
+          })
+          .catch(error => {
+            console.error(error)
+            this.message = 'Impossible de charger les parties. Veuillez réessayer plus tard.'
+          })
+          .finally(() => {
+            this.loading = false
+          })
+    },
+    fetchUser(idUser) {
+      this.loading = true
+      axios.post('localhost:2780/api/users/username', {id_user: idUser})
+          .then(response => {
+            this.users = response.data
+            if (this.users.length === 0) this.message = 'Aucun utilisateur trouvé. Créez-en un !'
+          })
+          .catch(error => {
+            console.error(error)
+            this.message = 'Impossible de charger les utilisateurs. Veuillez réessayer plus tard.'
+          })
+          .finally(() => {
+            this.loading = false
+          })
       axios
         .get('http://localhost:2080/games')
         .then((response) => {
@@ -29,6 +57,7 @@ export default {
   },
   created() {
     this.fetchGames()
+    this.fetchUser(1);
   }
 }
 </script>
@@ -45,9 +74,12 @@ export default {
       <div v-if="message" id="message" class="mt-5">{{ message }}</div>
       <div id="games-list" v-else>
         <div v-for="game in games" :key="game.id" class="card mb-3">
+
           <div class="card-body">
-            <h2 class="card-title">{{ game.name }}</h2>
-            <p class="card-text">{{ game.description }}</p>
+            <h2 class="card-title">{{ game.token }}</h2>
+            <p class="card-text">Niveau : {{ game.level }}</p>
+            <p class="card-text">Créée le {{ game.created_at }}</p>
+            <p class="card-text" @v-model="">Créateur : {{}}</p>
           </div>
         </div>
       </div>
