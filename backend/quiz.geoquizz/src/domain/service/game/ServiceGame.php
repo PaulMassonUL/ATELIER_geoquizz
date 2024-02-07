@@ -39,6 +39,9 @@ class ServiceGame implements iGame
             ]),
             'id_serie' => $g->id_serie,
             'sequence' => $this->serviceSerie->sequenceByIdSerie($g->id_serie),
+            'level' => $g->level,
+            'isPublic' => $g->isPublic,
+            'id_user' => $g->id_user
         ]);
 
         $this->logger->info("Game $uuid créée");

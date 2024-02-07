@@ -30,7 +30,7 @@ class CreerGameAction extends Action
         }
 
         try {
-            $gameDTO = new GameDTO($data['id_serie']);
+            $gameDTO = new GameDTO($data['id_serie'], $data['level'], $data['isPublic'], $data['id_user']);
             $game = $this->serviceGame->creerGame($gameDTO);
 
             $donnees = [
@@ -39,7 +39,10 @@ class CreerGameAction extends Action
                 'id_serie' => $game->id_serie,
                 'sequence' => $game->sequence,
                 'created_at' => $game->created_at,
-                'updated_at' => $game->updated_at
+                'updated_at' => $game->updated_at,
+                'level' => $game->level,
+                'isPublic' => $game->isPublic,
+                'id_user' => $game->id_user
             ];
 
             $rs->getBody()->write(json_encode($donnees));
