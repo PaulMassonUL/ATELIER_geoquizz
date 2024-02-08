@@ -145,14 +145,36 @@ class ServiceGame implements iGame
         if (!$game) {
             throw new Exception("Game not found", 404);
         }
+        try {
+            $clientAuth = new Client([
+                'base_uri' => $this->auth_uri,
+                'timeout' => 60.0,
+                'http_errors' => false
+            ]);
+            $headers = [
+                'Origin' => $_SERVER['HTTP_HOST'],
+            ];
+            $response = $clientAuth->request('GET', '/api/users/username?id_user=' . $game->id_user, [
+                'headers' => $headers
+            ]);
+            $body = $response->getBody()->getContents();
+            $data = json_decode($body, true);
+
+        } catch (Exception $e) {
+            throw new Exception("Erreur lors de la récupération du username" . $e);
+        }
 
         if ($game->isPublic == 1) {
             $this->playedGame($game, $game->id_user);
-            return $game->toDTO();
+            $gameDTO = $game->toDTO();
+            $gameDTO->username = $data['username'];
+            return $gameDTO;
         } else {
             // Vérifie si l'utilisateur fourni correspond à l'utilisateur associé au jeu
             if ($id_user !== null && $game->id_user == $id_user) {
                 $this->playedGame($game, $game->id_user);
+                $gameDTO = $game->toDTO();
+                $gameDTO->username = $data['username'];
                 return $game->toDTO();
             } else {
                 throw new Exception("Access denied", 403); // Accès non autorisé

@@ -26,7 +26,7 @@ class Game extends \Illuminate\Database\Eloquent\Model
         $g->id = $this->id;
         $g->token = $this->token;
         $g->id_serie = $this->id_serie;
-        $g->sequence = $this->sequence;
+        $g->sequence = json_decode($this->sequence);
         $g->level = $this->level;
         $g->isPublic = $this->isPublic;
         $g->state = $this->state;

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use geoquizz\quiz\app\actions\CreerGameAction;
-use geoquizz\quiz\app\actions\PostStartGame;
+use geoquizz\quiz\app\actions\GetGameAction;
 use geoquizz\quiz\app\actions\GetGamesPublicAction;
 use geoquizz\quiz\domain\middleware\Jwt;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -23,7 +23,7 @@ return function(App $app):void {
     $app->post('/games/new[/]', CreerGameAction::class)
         ->setName('creer_game')->add($JwtVerification);
 
-    $app->post('/games/{id}[/]', PostStartGame::class)
+    $app->get('/games/{id}[/]', GetGameAction::class)
         ->setName('game');
 
     $app->get("/", function (Request $rq, Response $rs, array $args) {

@@ -5,12 +5,13 @@ namespace geoquizz\quiz\app\actions;
 use geoquizz\quiz\domain\service\game\iGame;
 use geoquizz\quiz\domain\service\game\ServiceGame;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpUnauthorizedException;
 
-class PostStartGame extends Action
+class GetGameAction extends Action
 {
     private ServiceGame $serviceGame;
 
@@ -23,7 +24,7 @@ class PostStartGame extends Action
     }
 
     /**
-     * @throws \Exception|\GuzzleHttp\Exception\GuzzleException
+     * @throws \Exception|GuzzleException
      */
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
