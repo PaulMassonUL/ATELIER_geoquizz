@@ -13,58 +13,58 @@ export default {
     return {
       loading: false,
       game: {
-        id: "zefzefzefzef",
-        token: "zefzefzefezf",
-        id_serie: "Nancy",
+        id: 'zefzefzefzef',
+        token: 'zefzefzefezf',
+        id_serie: 'Nancy',
         sequence: [
           {
-            url: "805c06d9-0af6-4b5c-9ef0-f9d07d52dd0c",
+            url: '805c06d9-0af6-4b5c-9ef0-f9d07d52dd0c',
             location: {
               coordinates: [48.692054, 6.184417],
-              type: "Point"
+              type: 'Point'
             }
           },
           {
-            url: "4846760d-cc26-476e-a13f-828ec0b78f16",
+            url: '4846760d-cc26-476e-a13f-828ec0b78f16',
             location: {
               coordinates: [48.692054, 6.184417],
-              type: "Point"
+              type: 'Point'
             }
           },
           {
-            url: "2e6542a1-201c-4721-b04c-2e789618495d",
+            url: '2e6542a1-201c-4721-b04c-2e789618495d',
             location: {
               coordinates: [48.692054, 6.184417],
-              type: "Point"
+              type: 'Point'
             }
           }
         ],
         isPublic: true,
         level: 2,
         state: 2,
-        id_user: "mail@example.com",
+        id_user: 'mail@example.com'
       },
       current_image: 0,
-      location: null,
-    };
+      location: null
+    }
   },
   methods: {
     fetchGame() {
       this.loading = true
 
       axios
-          .get('http://localhost:2080/games/' + this.$route.params.id)
-          .then((response) => {
-            this.game = response.data
-            this.game.sequence = JSON.parse(this.game.sequence)
-          })
-          .catch((error) => {
-            console.error(error)
-            this.message = 'Impossible de charger la partie. Essayez de rafraichir la page.'
-          })
-          .finally(() => {
-            this.loading = false
-          })
+        .get('http://localhost:2080/games/' + this.$route.params.id)
+        .then((response) => {
+          this.game = response.data
+          this.game.sequence = JSON.parse(this.game.sequence)
+        })
+        .catch((error) => {
+          console.error(error)
+          this.message = 'Impossible de charger la partie. Essayez de rafraichir la page.'
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     handleLocationSelected(location) {
       this.location = location
@@ -90,18 +90,27 @@ export default {
 
 <template>
   <div class="game-page">
-    <PlayInfoComponent :game="game"/>
+    <PlayInfoComponent :game="game" />
     <div class="game-content">
       <div class="image-component">
-        <img :src="'http://docketu.iutnc.univ-lorraine.fr:11055/assets/' + game.sequence[current_image].url"
-             alt="Si cette image ne s'affiche pas, rafraichissez la page."/>
+        <img
+          :src="
+            'http://docketu.iutnc.univ-lorraine.fr:11055/assets/' + game.sequence[current_image].url
+          "
+          alt="Si cette image ne s'affiche pas, rafraichissez la page."
+        />
       </div>
       <div class="map-component">
-        <PlayMapComponent ref="mapComponent" @location-selected="handleLocationSelected"
-                          :default_center="game.sequence[current_image].location.coordinates"/>
+        <PlayMapComponent
+          ref="mapComponent"
+          @location-selected="handleLocationSelected"
+          :default_center="game.sequence[current_image].location.coordinates"
+        />
       </div>
     </div>
-    <button class="btn btn-primary btn-lg validate-button" v-if="location" @click="validate">Valider</button>
+    <button class="btn btn-primary btn-lg validate-button" v-if="location" @click="validate">
+      Valider
+    </button>
   </div>
 </template>
 

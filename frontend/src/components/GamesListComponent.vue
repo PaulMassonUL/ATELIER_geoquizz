@@ -16,54 +16,56 @@ export default {
   methods: {
     fetchGames() {
       this.loading = true
-      axios.get('http://localhost:2080/games')
-          .then(response => {
-            this.games = response.data
-            if (this.games.length === 0) this.message = 'Aucune partie trouvée. Créez-en une !'
-          })
-          .catch(error => {
-            console.error(error)
-            this.message = 'Impossible de charger les parties. Veuillez réessayer plus tard.'
-          })
-          .finally(() => {
-            this.loading = false
-          })
+      axios
+        .get('http://localhost:2080/games')
+        .then((response) => {
+          this.games = response.data
+          if (this.games.length === 0) this.message = 'Aucune partie trouvée. Créez-en une !'
+        })
+        .catch((error) => {
+          console.error(error)
+          this.message = 'Impossible de charger les parties. Veuillez réessayer plus tard.'
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     fetchSerie() {
       this.loading = true
-      axios.get(`http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie`)
-          .then(response => {
-            this.series = response.data.data
-          })
-          .catch(error => {
-            console.error(error)
-            this.message = 'Impossible de charger la série. Veuillez réessayer plus tard.'
-          })
-          .finally(() => {
-            this.loading = false
-          })
+      axios
+        .get(`http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie`)
+        .then((response) => {
+          this.series = response.data.data
+        })
+        .catch((error) => {
+          console.error(error)
+          this.message = 'Impossible de charger la série. Veuillez réessayer plus tard.'
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     getSeriesById(game) {
-      const serie = this.series.find(serie => serie.id == game.id_serie);
+      const serie = this.series.find((serie) => serie.id == game.id_serie)
       if (!serie) {
-        console.error(`Serie avec l'id ${game.id_serie} non trouvée`);
-        return null;
+        console.error(`Serie avec l'id ${game.id_serie} non trouvée`)
+        return null
       }
 
-      return serie;
+      return serie
     },
     checkDifficulty(value) {
       if (value === 1) {
-        return '<span class="text-success">Facile</span>';
+        return '<span class="text-success">Facile</span>'
       } else if (value === 2) {
-        return '<span class="text-warning">Moyen</span>';
+        return '<span class="text-warning">Moyen</span>'
       } else {
-        return '<span class="text-danger">Difficile</span>';
+        return '<span class="text-danger">Difficile</span>'
       }
     },
     formatDate(dateString) {
       const date = parseISO(dateString)
-      return format(date, 'dd/MM/yyyy \'à\' HH:mm:ss', { locale: fr })
+      return format(date, "dd/MM/yyyy 'à' HH:mm:ss", { locale: fr })
     }
   },
   created() {
@@ -92,7 +94,9 @@ export default {
                 <p class="card-text">Niveau : <span v-html="checkDifficulty(game.level)"></span></p>
                 <p class="card-text">Créer par : {{ game.id_user }}</p>
                 <p class="card-text">Créer le {{ formatDate(game.created_at) }}</p>
-                <RouterLink id="bouton" to="/play" class="btn btn-success">Lancer la partie ►</RouterLink>
+                <RouterLink id="bouton" to="/play" class="btn btn-success"
+                  >Lancer la partie ►</RouterLink
+                >
               </div>
             </div>
           </div>

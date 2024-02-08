@@ -1,5 +1,5 @@
 <script>
-import {RouterLink, RouterView} from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 
 export default {
   name: 'App',
@@ -24,7 +24,7 @@ export default {
     </header>
 
     <main>
-      <RouterView/>
+      <RouterView />
     </main>
   </div>
 </template>
@@ -46,10 +46,10 @@ export default {
       height: fit-content;
       background: rgb(98, 98, 98);
       background: radial-gradient(
-              circle,
-              rgba(98, 98, 98, 1) 0%,
-              rgba(80, 80, 80, 1) 50%,
-              rgba(54, 54, 54, 1) 100%
+        circle,
+        rgba(98, 98, 98, 1) 0%,
+        rgba(80, 80, 80, 1) 50%,
+        rgba(54, 54, 54, 1) 100%
       );
 
       .wrapper {
