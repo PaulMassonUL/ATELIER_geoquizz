@@ -34,7 +34,7 @@ return [
     },
 
     PostStartGame::class => function (ContainerInterface $container) {
-        return new PostStartGame($container->get('game.service'));
+        return new PostStartGame($container->get('game.service'), $container->get('auth.api.base_uri'));
     }
 
 ];

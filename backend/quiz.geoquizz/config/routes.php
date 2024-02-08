@@ -24,7 +24,7 @@ return function(App $app):void {
         ->setName('creer_game')->add($JwtVerification);
 
     $app->post('/games/{id}[/]', PostStartGame::class)
-        ->setName('game')->add($JwtVerification);
+        ->setName('game');
 
     $app->get("/", function (Request $rq, Response $rs, array $args) {
         echo "bonjour";
