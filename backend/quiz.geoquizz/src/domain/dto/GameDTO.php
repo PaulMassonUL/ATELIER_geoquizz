@@ -19,10 +19,7 @@ class GameDTO extends \geoquizz\quiz\domain\dto\DTO
     public string $id_user;
     public string $created_at;
     public string $updated_at;
-
-
-
-
+    public ?string $username = null; // Ajout de la propriété $username avec une valeur par défaut null
 
     public function __construct(string $id_serie, string $id_user, int $level, bool $isPublic)
     {
@@ -31,7 +28,6 @@ class GameDTO extends \geoquizz\quiz\domain\dto\DTO
         $this->level = $level;
         $this->isPublic = $isPublic;
     }
-
 
 
 }
