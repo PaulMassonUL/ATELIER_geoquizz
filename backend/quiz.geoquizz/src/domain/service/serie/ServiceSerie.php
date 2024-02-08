@@ -24,7 +24,7 @@ class ServiceSerie implements iSerie
     {
         $client = new Client([
             'base_uri' => $this->series_uri,
-            'timeout' => 2.0,
+            'timeout' => 60.0,
         ]);
         try {
             $response = $client->request('GET', '/items/Serie/' . $id . '?fields=*.Image_id.*');

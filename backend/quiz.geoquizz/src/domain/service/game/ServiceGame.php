@@ -3,6 +3,7 @@
 namespace geoquizz\quiz\domain\service\game;
 
 use Exception;
+use geoquizz\quiz\domain\entities\Played;
 use geoquizz\quiz\domain\manager\JwtManager;
 use geoquizz\quiz\domain\dto\GameDTO;
 use geoquizz\quiz\domain\entities\Game;
@@ -35,8 +36,9 @@ class ServiceGame implements iGame
 
     /**
      * @throws Exception
+     * @throws GuzzleException
      */
-    public function creerGame(GameDTO $g): array
+    public function creerGame(GameDTO $g): GameDTO
     {
         $jwt = new JwtManager("secret");
         $jwt->setIssuer($_SERVER['HTTP_HOST']);
@@ -56,9 +58,43 @@ class ServiceGame implements iGame
             'isPublic' => $g->isPublic,
             'id_user' => $g->id_user
         ]);
+        $gameDTO = $game->toDTO();
+        try {
+            $clientAuth = new Client([
+                'base_uri' => $this->auth_uri,
+                'timeout' => 60.0,
+                'http_errors' => false
+            ]);
+            $headers = [
+                'Origin' => $_SERVER['HTTP_HOST'],
+            ];
+            $response = $clientAuth->request('GET', '/api/users/username?id_user=' . $g->id_user, [
+                'headers' => $headers
+            ]);
+            $body = $response->getBody()->getContents();
+            $data = json_decode($body, true);
+            $gameDTO->username = $data['username'];
+        } catch (Exception $e) {
+            throw new Exception("Erreur lors de la récupération du username" . $e);
+        }
+
+        $this->playedGame($game, $g->id_user);
 
         $this->logger->info("Game $uuid créée");
-        return ['game' => $game->toDTO(), 'id' => $uuid];
+        return $gameDTO;
+    }
+
+    //Ajoute un objet played dans la base de données (table played) avec les informations de la partie jouée
+    public function playedGame(Game $game, string $id_user): void
+    {
+        $played = new Played();
+        $played->id_game = $game->id;
+        $played->id_user = $id_user;
+        $played->score = 0;
+        $played->state = 1;
+        $played->date = date('Y-m-d H:i:s');
+
+        $played->save();
     }
 
 
@@ -104,13 +140,24 @@ class ServiceGame implements iGame
     /**
      * @throws Exception
      */
-    public function getGameById($id): GameDTO
+    public function startGameById($id_game, $id_user = null): GameDTO
     {
-        $game = Game::where('id', $id)->first();
+        $game = Game::where('id', $id_game)->first();
+        if (!$game) {
+            throw new Exception("Game not found", 404);
+        }
+
         if ($game->isPublic == 1) {
+            $this->playedGame($game, $game->id_user);
             return $game->toDTO();
         } else {
-            throw new Exception("Game not found", 404);
+            // Vérifie si l'utilisateur fourni correspond à l'utilisateur associé au jeu
+            if ($id_user !== null && $game->id_user == $id_user) {
+                $this->playedGame($game, $game->id_user);
+                return $game->toDTO();
+            } else {
+                throw new Exception("Access denied", 403); // Accès non autorisé
+            }
         }
     }
 

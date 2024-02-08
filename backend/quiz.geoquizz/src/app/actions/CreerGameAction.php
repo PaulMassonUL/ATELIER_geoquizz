@@ -24,25 +24,33 @@ class CreerGameAction extends Action
         // Récupérez les données JSON du corps de la requête
         $data = $rq->getParsedBody();
 
-        if (!isset($data['id_serie']) || !isset($data['id_user']) || !isset($data['level']) || !isset($data['isPublic']))  {
+        $user = $rq->getAttribute('user');
+
+        if (!isset($data['id_serie']) || !isset($user['email']) || !isset($data['level']) || !isset($data['isPublic']))  {
             $rs->getBody()->write(json_encode(['error' => 'missing parameters (id_serie, id_user, level, isPublic)']));
             return $rs->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
         try {
-            $gameDTO = new GameDTO($data['id_serie'], $data['id_user'], $data['level'], $data['isPublic']);
-            $result = $this->serviceGame->creerGame($gameDTO);
-
-            $game = $result['game'];
-            $id = $result['id'];
+            $gameDTO = new GameDTO($data['id_serie'], $user['email'], $data['level'], $data['isPublic']);
+            $resultDTO = $this->serviceGame->creerGame($gameDTO);
 
             $donnees = [
-                'id' => $id,
-                'token' => $game->token,
+                'id' => $resultDTO->id,
+                'token' => $resultDTO->token,
+                'id_serie' => $resultDTO->id_serie,
+                'sequence' => json_decode($resultDTO->sequence),
+                'isPublic' => $resultDTO->isPublic,
+                'level' => $resultDTO->level,
+                'state' => $resultDTO->state,
+                'id_user' => $resultDTO->id_user,
+                'created_at' => $resultDTO->created_at,
+                'updated_at' => $resultDTO->updated_at,
+                'username' => $resultDTO->username
             ];
 
             $rs->getBody()->write(json_encode($donnees));
-            return $rs->withHeader('Content-Type', 'application/json')->withHeader('Location', '/game/' . $game->id)->withStatus(201);
+            return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);
 
         } catch (Exception $e) {
             $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));

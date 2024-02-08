@@ -1,7 +1,6 @@
 <?php
 
 namespace geoquizz\quiz\domain\entities;
-
 use geoquizz\quiz\domain\dto\GameDTO;
 
 class Game extends \Illuminate\Database\Eloquent\Model
@@ -36,4 +35,6 @@ class Game extends \Illuminate\Database\Eloquent\Model
         $g->updated_at = $this->updated_at;
         return $g;
     }
+
+
 }

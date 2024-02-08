@@ -34,9 +34,14 @@ class Jwt
         ];
 
         try {
-            $client->request('GET', '/api/users/validate', [
+            $response = $client->request('GET', '/api/users/validate', [
                 'headers' => $headers
             ]);
+            //enregistrer le user dans la requête
+            // la reponse retourne un UserDTO
+            $request = $request->withAttribute('user', json_decode($response->getBody()->getContents(), true));
+
+
 
             return $next->handle($request);
         } catch (RequestException $e) {

@@ -1,7 +1,7 @@
 <?php
 
 use geoquizz\quiz\app\actions\CreerGameAction;
-use geoquizz\quiz\app\actions\GetGameByIdAction;
+use geoquizz\quiz\app\actions\PostStartGame;
 use geoquizz\quiz\console\CreateDatabaseCommand;
 use geoquizz\quiz\app\actions\GetGamesPublicAction;
 use geoquizz\quiz\console\PopulateDatabaseCommand;
@@ -33,8 +33,8 @@ return [
         return new GetGamesPublicAction($container->get('game.service'));
     },
 
-    GetGameByIdAction::class => function (ContainerInterface $container) {
-        return new GetGameByIdAction($container->get('game.service'));
+    PostStartGame::class => function (ContainerInterface $container) {
+        return new PostStartGame($container->get('game.service'));
     }
 
 ];
