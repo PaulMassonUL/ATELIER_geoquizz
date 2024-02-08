@@ -1,5 +1,5 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterLink, RouterView} from 'vue-router'
 
 export default {
   name: 'App',
@@ -11,71 +11,85 @@ export default {
 </script>
 
 <template>
-  <header>
-    <div class="menu">
-      <div class="wrapper">
-        <nav>
-          <RouterLink id="nav-accueil" to="/">GeoQuizz</RouterLink>
-          <RouterLink id="nav-action" to="/signin">Connexion</RouterLink>
-        </nav>
+  <div id="app-container">
+    <header>
+      <div class="menu">
+        <div class="wrapper">
+          <nav>
+            <RouterLink id="nav-accueil" to="/">GeoQuizz</RouterLink>
+            <RouterLink id="nav-action" to="/signin">Connexion</RouterLink>
+          </nav>
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <RouterView />
-  </main>
+    <main>
+      <RouterView/>
+    </main>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
 
-header {
-  box-shadow: 0px 0px 10px 0px black;
+#app-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
-  .menu {
-    height: fit-content;
-    background: rgb(98, 98, 98);
-    background: radial-gradient(
-      circle,
-      rgba(98, 98, 98, 1) 0%,
-      rgba(80, 80, 80, 1) 50%,
-      rgba(54, 54, 54, 1) 100%
-    );
+  header {
+    position: relative;
+    z-index: 100;
+    box-shadow: 0px 0px 10px 0px black;
 
-    .wrapper {
-      width: 90%;
-      margin: auto;
+    .menu {
+      height: fit-content;
+      background: rgb(98, 98, 98);
+      background: radial-gradient(
+              circle,
+              rgba(98, 98, 98, 1) 0%,
+              rgba(80, 80, 80, 1) 50%,
+              rgba(54, 54, 54, 1) 100%
+      );
 
-      nav {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+      .wrapper {
+        width: 90%;
+        margin: auto;
 
-        a {
-          text-decoration: none;
-          color: white;
-        }
+        nav {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
 
-        #nav-action {
-          font-size: 1.2rem;
-          border: 3px solid white;
-          border-radius: 30px;
-          background-color: transparent;
-          padding: 7px 12px;
-
-          &:hover {
-            background-color: white;
-            color: black;
+          a {
+            text-decoration: none;
+            color: white;
           }
-        }
 
-        #nav-accueil {
-          font-size: 60px;
+          #nav-action {
+            font-size: 1.2rem;
+            border: 3px solid white;
+            border-radius: 30px;
+            background-color: transparent;
+            padding: 7px 12px;
+
+            &:hover {
+              background-color: white;
+              color: black;
+            }
+          }
+
+          #nav-accueil {
+            font-size: 60px;
+          }
         }
       }
     }
+  }
+
+  main {
+    flex: 1;
   }
 }
 </style>

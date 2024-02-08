@@ -19,6 +19,6 @@ class GetGameByIdAction extends Action
     {
         $games = $this->serviceGame->getGameById($args['id']);
         $rs->getBody()->write(json_encode($games));
-        return $rs->withHeader('Content-Type', 'application/json;charset=utf-8')->withStatus(200);
+        return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 }

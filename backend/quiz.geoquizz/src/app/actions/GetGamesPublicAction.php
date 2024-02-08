@@ -19,6 +19,6 @@ class GetGamesPublicAction extends Action
     {
         $games = $this->serviceGame->getGamesPublic();
         $rs->getBody()->write(json_encode($games));
-        return $rs->withHeader('Content-Type', 'application/json;charset=utf-8')->withStatus(200);
+        return $rs->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
 }

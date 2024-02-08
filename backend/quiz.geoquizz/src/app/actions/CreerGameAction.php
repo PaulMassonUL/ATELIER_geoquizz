@@ -26,7 +26,7 @@ class CreerGameAction extends Action
 
         if (!isset($data['id_serie']) || !isset($data['id_user']) || !isset($data['level']) || !isset($data['isPublic']))  {
             $rs->getBody()->write(json_encode(['error' => 'missing parameters (id_serie, id_user, level, isPublic)']));
-            return $rs->withStatus(400);
+            return $rs->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
         try {
@@ -42,11 +42,11 @@ class CreerGameAction extends Action
             ];
 
             $rs->getBody()->write(json_encode($donnees));
-            return $rs->withHeader('Content-Type', 'application/json;charset=utf-8')->withHeader('Location', '/game/' . $game->id)->withStatus(201);
+            return $rs->withHeader('Content-Type', 'application/json')->withHeader('Location', '/game/' . $game->id)->withStatus(201);
 
         } catch (Exception $e) {
             $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));
-            return $rs->withStatus(500);
+            return $rs->withStatus(500)->withHeader('Content-Type', 'application/json');
         }
 
     }

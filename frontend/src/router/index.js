@@ -36,17 +36,12 @@ const router = createRouter({
         {
             path: '/games/:id/play',
             name: 'play-game',
-            component: () => import('@/views/GamesView.vue')
+            component: () => import('@/views/PlayView.vue')
         },
         {
             path: '/:pathMatch(.*)*',
             name: 'not-found',
             component: () => import('@/views/NotFoundView.vue')
-        },
-        {
-            path: '/play',
-            name: 'play',
-            component: () => import('@/views/PlayView.vue')
         }
     ]
 })

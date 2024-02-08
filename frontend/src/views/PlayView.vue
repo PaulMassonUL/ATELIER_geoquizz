@@ -9,7 +9,5 @@ export default {
 </script>
 
 <template>
-  <section class="container mt-3">
-    <PlayComponent />
-  </section>
+  <PlayComponent/>
 </template>
