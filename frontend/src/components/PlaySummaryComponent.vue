@@ -17,9 +17,9 @@ export default {
         <div class="card mb-4">
           <img :src="score.image" class="card-img-top" alt="Image">
           <div class="card-body">
-            <h5 class="card-title">Score: {{ score.score }}</h5>
+            <h5 class="card-title">{{ score.score }} points</h5>
             <p class="card-text">Temps : {{ score.time }} secondes</p>
-            <p class="card-text">Distance: {{ score.distance }}</p>
+            <p class="card-text">Distance: {{ score.distance.toFixed(1) }} m</p>
           </div>
         </div>
       </div>
