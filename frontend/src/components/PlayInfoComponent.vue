@@ -5,6 +5,25 @@ export default {
     game: {
       type: Object,
       required: true
+    },
+    score: {
+      type: Number,
+      required: true
+    },
+    time: {
+      type: Number,
+      required: true
+    }
+  },
+  computed: {
+    getFormattedTime() {
+      const hours = Math.floor(this.time / 3600)
+      const minutes = Math.floor(this.time / 60)
+      const seconds = this.time % 60
+      if (hours === 0) {
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+      }
+      return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
     }
   }
 }
@@ -22,11 +41,11 @@ export default {
       </div>
       <div class="info">
         <span>Score :</span>
-        <span>0</span>
+        <span>{{ score }}</span>
       </div>
       <div class="info">
-        <span>Temps restant :</span>
-        <span>0:30</span>
+        <span>Temps écoulé :</span>
+        <span>{{ getFormattedTime }}</span>
       </div>
     </div>
   </div>

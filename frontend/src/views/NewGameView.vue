@@ -39,7 +39,11 @@ export default {
       this.sending_error = ''
       this.sending = true
       axios
-        .post('http://localhost:2080/game/', this.game)
+        .post('http://localhost:2080/games/new', this.game, {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('access_token')
+          }
+        })
         .then((response) => {
           localStorage.setItem('game_token', response.data.token)
           this.$router.push('/games/' + response.data.id)
@@ -100,50 +104,21 @@ export default {
         </div>
         <div class="mb-3 d-flex justify-content-around">
           <div class="btn-group" role="group" aria-label="Difficulty">
-            <input
-              type="radio"
-              class="btn-check"
-              name="difficulty"
-              id="easy"
-              autocomplete="off"
-              v-model="game.level"
-              value="1"
-            />
+            <input type="radio" class="btn-check" name="difficulty" id="easy" autocomplete="off" v-model="game.level"
+              value="1" />
             <label class="btn btn-outline-success btn-lg" for="easy">Facile</label>
 
-            <input
-              type="radio"
-              class="btn-check"
-              name="difficulty"
-              id="medium"
-              autocomplete="off"
-              v-model="game.level"
-              value="2"
-              checked
-            />
+            <input type="radio" class="btn-check" name="difficulty" id="medium" autocomplete="off" v-model="game.level"
+              value="2" checked />
             <label class="btn btn-outline-secondary btn-lg" for="medium">Moyen</label>
 
-            <input
-              type="radio"
-              class="btn-check"
-              name="difficulty"
-              id="hard"
-              autocomplete="off"
-              v-model="game.level"
-              value="3"
-            />
+            <input type="radio" class="btn-check" name="difficulty" id="hard" autocomplete="off" v-model="game.level"
+              value="3" />
             <label class="btn btn-outline-danger btn-lg" for="hard">Difficile</label>
           </div>
         </div>
         <div class="form-check form-switch d-flex align-items-center justify-content-center mt-3">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            role="switch"
-            id="private"
-            v-model="game.isPublic"
-            checked
-          />
+          <input class="form-check-input" type="checkbox" role="switch" id="private" v-model="game.isPublic" checked />
           <label class="form-check-label ms-2" for="private">Partie privée</label>
         </div>
         <button v-if="sending" class="btn btn-primary" type="button" disabled>
