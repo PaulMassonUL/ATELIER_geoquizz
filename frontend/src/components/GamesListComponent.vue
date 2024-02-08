@@ -92,7 +92,7 @@ export default {
               <div class="card-body">
                 <h2 class="card-title">Ville : {{ getSeriesById(game).name }}</h2>
                 <p class="card-text">Niveau : <span v-html="checkDifficulty(game.level)"></span></p>
-                <p class="card-text">Créer par : {{ game.id_user }}</p>
+                <p class="card-text">Créer par : {{ game.username }}</p>
                 <p class="card-text">Créer le {{ formatDate(game.created_at) }}</p>
                 <RouterLink id="bouton" to='/games/${game.id}/play' class="btn btn-success"
                   >Lancer la partie ►</RouterLink
