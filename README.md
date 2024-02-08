@@ -7,9 +7,13 @@
   docker compose exec api.geo-quizz composer install
 ```
 
-2) Création et peuplement de la BD
+2) Création de la BD
 ```bash
   docker compose exec api.geo-quizz php bin/console db:create
-  docker compose exec api.geo-quizz php bin/console db:populate
 ``` 
+
+3) peuplement de la bd
+```bash 
+  docker compose exec api.geo-quizz php bin/console db:populate
+```
 
