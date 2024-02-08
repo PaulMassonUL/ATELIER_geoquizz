@@ -35,21 +35,6 @@ class CreerGameAction extends Action
             $gameDTO = new GameDTO($data['id_serie'], $user['email'], $data['level'], $data['isPublic']);
             $resultDTO = $this->serviceGame->creerGame($gameDTO);
 
-            $donnees = [
-                'id' => $resultDTO->id,
-                'token' => $resultDTO->token,
-                'id_serie' => $resultDTO->id_serie,
-                'sequence' => json_decode($resultDTO->sequence),
-                'isPublic' => $resultDTO->isPublic,
-                'level' => $resultDTO->level,
-                'state' => $resultDTO->state,
-                'id_user' => $resultDTO->id_user,
-                'created_at' => $resultDTO->created_at,
-                'updated_at' => $resultDTO->updated_at,
-                'username' => $resultDTO->username
-            ];
-
-            $rs->getBody()->write(json_encode($donnees));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);
 
         } catch (Exception $e) {
