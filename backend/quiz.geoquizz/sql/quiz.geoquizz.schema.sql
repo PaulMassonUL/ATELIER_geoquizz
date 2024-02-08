@@ -12,11 +12,10 @@ CREATE TABLE `game`
 (
     `id`   varchar(255)  NOT NULL,
     `token` varchar(255) NOT NULL,
-    `id_serie` varchar(255) NOT NULL,
+    `id_serie` int(11) NOT NULL,
     `sequence` JSON NOT NULL,
     `isPublic` BOOLEAN NOT NULL DEFAULT 0,
     `level` int(11) NOT NULL,
-    `state` int(11) NOT NULL,
     `id_user` varchar(255) NOT NULL,
     `created_at` datetime NOT NULL,
     `updated_at` datetime NOT NULL,
@@ -30,7 +29,6 @@ CREATE TABLE `played`
     `id_game` varchar(255) NOT NULL,
     `id_user`   varchar(255) NOT NULL,
     `score`     int(11) NOT NULL,
-    `state`      int(11) NOT NULL,
     `date`      datetime NOT NULL,
     PRIMARY KEY (`id`),
     CONSTRAINT `fk_game_id` FOREIGN KEY (`id_game`) REFERENCES `game` (`id`) ON DELETE CASCADE
