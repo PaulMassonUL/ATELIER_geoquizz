@@ -91,7 +91,6 @@ class ServiceGame implements iGame
         $played->id_game = $game->id;
         $played->id_user = $id_user;
         $played->score = 0;
-        $played->state = 1;
         $played->date = date('Y-m-d H:i:s');
 
         $played->save();
