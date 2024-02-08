@@ -70,9 +70,6 @@ export default {
       this.location = location
     },
     validate() {
-      // send location to backend
-
-      // Si c'est fini aller à la page de résumé
       if (this.current_image === this.game.sequence.length - 1) {
         this.$router.push('/games/' + this.$route.params.id + '/summary')
       } else {

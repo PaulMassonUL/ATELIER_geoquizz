@@ -94,7 +94,7 @@ export default {
                 <p class="card-text">Niveau : <span v-html="checkDifficulty(game.level)"></span></p>
                 <p class="card-text">Créer par : {{ game.id_user }}</p>
                 <p class="card-text">Créer le {{ formatDate(game.created_at) }}</p>
-                <RouterLink id="bouton" to="/play" class="btn btn-success"
+                <RouterLink id="bouton" to='/games/${game.id}/play' class="btn btn-success"
                   >Lancer la partie ►</RouterLink
                 >
               </div>
