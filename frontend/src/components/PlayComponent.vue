@@ -14,38 +14,39 @@ export default {
   data() {
     return {
       loading: true,
-      game: {
-        id: 'zefzefzefzef',
-        token: 'zefzefzefezf',
-        id_serie: 'Nancy',
-        sequence: [
-          {
-            url: '805c06d9-0af6-4b5c-9ef0-f9d07d52dd0c',
-            location: {
-              coordinates: [48.692054, 6.184417],
-              type: 'Point'
-            }
-          },
-          {
-            url: '4846760d-cc26-476e-a13f-828ec0b78f16',
-            location: {
-              coordinates: [48.692054, 6.184417],
-              type: 'Point'
-            }
-          },
-          {
-            url: '2e6542a1-201c-4721-b04c-2e789618495d',
-            location: {
-              coordinates: [48.692054, 6.184417],
-              type: 'Point'
-            }
-          }
-        ],
-        isPublic: true,
-        level: 2,
-        state: 2,
-        id_user: 'mail@example.com'
-      },
+      // game: {
+      //   id: 'zefzefzefzef',
+      //   token: 'zefzefzefezf',
+      //   id_serie: 'Nancy',
+      //   sequence: [
+      //     {
+      //       url: '805c06d9-0af6-4b5c-9ef0-f9d07d52dd0c',
+      //       location: {
+      //         coordinates: [48.692054, 6.184417],
+      //         type: 'Point'
+      //       }
+      //     },
+      //     {
+      //       url: '4846760d-cc26-476e-a13f-828ec0b78f16',
+      //       location: {
+      //         coordinates: [48.692054, 6.184417],
+      //         type: 'Point'
+      //       }
+      //     },
+      //     {
+      //       url: '2e6542a1-201c-4721-b04c-2e789618495d',
+      //       location: {
+      //         coordinates: [48.692054, 6.184417],
+      //         type: 'Point'
+      //       }
+      //     }
+      //   ],
+      //   isPublic: true,
+      //   level: 2,
+      //   state: 2,
+      //   id_user: 'mail@example.com'
+      // },
+      game: null,
       scores: [],
       current_image: 0,
       location: null,
@@ -60,7 +61,7 @@ export default {
       this.loading = true
 
       axios
-        .post('http://localhost:2080/games/' + this.$route.params.id)
+        .get('http://localhost:2080/games/' + this.$route.params.id)
         .then((response) => {
           console.log(response)
           this.game = response.data

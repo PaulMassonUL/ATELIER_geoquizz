@@ -37,7 +37,7 @@ export default {
       </div>
       <div class="info">
         <span>Créé par :</span>
-        <span>{{ game.id_user }}</span>
+        <span>{{ game.username }}</span>
       </div>
       <div class="info">
         <span>Score :</span>

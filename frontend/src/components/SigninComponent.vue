@@ -35,7 +35,7 @@ export default {
           }
         )
         .then((response) => {
-          localStorage.setItem('token', response.data.access_token)
+          localStorage.setItem('access_token', response.data.access_token)
           this.$router.push('/')
         })
         .catch((error) => {

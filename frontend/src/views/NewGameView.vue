@@ -46,11 +46,10 @@ export default {
         })
         .then((response) => {
           localStorage.setItem('game_token', response.data.token)
-          this.$router.push('/games/' + response.data.id)
+          this.$router.push('/games/' + response.data.id + '/play')
         })
-        .catch((error) => {
-          console.log(error)
-          this.sending_error = "Une erreur s'est produite. Veuillez réessayer."
+        .catch(() => {
+          this.sending_error = 'Vous devez être connecté pour créer une partie.'
         })
         .finally(() => {
           this.sending = false

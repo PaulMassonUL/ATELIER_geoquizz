@@ -37,8 +37,7 @@ export default {
         .then((response) => {
           this.series = response.data.data
         })
-        .catch((error) => {
-          console.error(error)
+        .catch(() => {
           this.message = 'Impossible de charger la série. Veuillez réessayer plus tard.'
         })
         .finally(() => {
@@ -90,11 +89,11 @@ export default {
           <div v-for="game in games" :key="game.id" class="col-md-3 col-sm-6">
             <div class="card mb-3">
               <div class="card-body">
-                <h2 class="card-title">Ville : {{ getSeriesById(game).name }}</h2>
+                <h2 class="card-title">Série : {{ getSeriesById(game).name }}</h2>
                 <p class="card-text">Niveau : <span v-html="checkDifficulty(game.level)"></span></p>
-                <p class="card-text">Créer par : {{ game.username }}</p>
-                <p class="card-text">Créer le {{ formatDate(game.created_at) }}</p>
-                <RouterLink id="bouton" to='/games/${game.id}/play' class="btn btn-success"
+                <p class="card-text">Auteur : {{ game.username }}</p>
+                <p class="card-text">Créé le {{ formatDate(game.created_at) }}</p>
+                <RouterLink id="bouton" :to="'/games/' + game.id + '/play'" class="btn btn-success"
                   >Lancer la partie ►</RouterLink
                 >
               </div>
