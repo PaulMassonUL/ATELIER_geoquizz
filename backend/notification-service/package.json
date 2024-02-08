@@ -1,0 +1,16 @@
+{
+  "name": "notification-service",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "service de notification pour tous les clients avec Websocket",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "socket.io": "^4.7.4"
+  },
+  "author": "Elian Guiffault <elian.yutz@hotmail.fr>",
+  "license": "ISC"
+}
