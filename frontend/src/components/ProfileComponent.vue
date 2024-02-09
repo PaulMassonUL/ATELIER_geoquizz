@@ -105,6 +105,7 @@ export default {
                                 </div>
                                 <div>Série : {{ game.name_serie }}</div>
                                 <small>Difficulté : {{ game.level }}</small>
+                              <RouterLink id="bouton" :to="'/games/' + game.id + '/play'" class="btn btn-success">Rejouer la partie</RouterLink>
                             </div>
 
                         </div>
