@@ -51,15 +51,17 @@ export default {
         Durée de la partie <span class="badge bg-info">{{ getFormattedTime(totalTime) }}</span>
       </p>
     </div>
-    <hr />
-    <div v-for="(score, index) in scores" :key="index">
-      <div class="score-counter">#{{ index + 1 }}</div>
-      <div class="score-card mb-4 d-flex">
-        <img :src="score.image" alt="Image" />
-        <div class="score-card-body">
-          <p class="score-card-title">{{ score.score }} points</p>
-          <p class="score-card-text">Temps : {{ getFormattedTime(score.time) }}</p>
-          <p class="score-card-text">Distance: {{ score.distance.toFixed(1) }} m</p>
+    <hr/>
+    <div class="score-cards-container">
+      <div v-for="(score, index) in scores" :key="index" class="">
+        <div class="score-counter">#{{ index + 1 }}</div>
+        <div class="score-card mb-4 d-flex">
+          <img :src="score.image" alt="Image"/>
+          <div class="score-card-body">
+            <p class="score-card-title">{{ score.score }} points</p>
+            <p class="score-card-text">Temps : {{ getFormattedTime(score.time) }}</p>
+            <p class="score-card-text">Distance: {{ score.distance.toFixed(1) }} m</p>
+          </div>
         </div>
       </div>
     </div>
@@ -86,10 +88,19 @@ $card-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .score-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px; // Définir une largeur fixe pour chaque carte
+  margin: 10px; // Ajouter une marge pour espacer les cartes
   border-radius: $card-border-radius;
   box-shadow: $card-shadow;
-  height: 200px;
-  overflow: hidden;
+
+  img {
+    width: 100%; // L'image prendra toute la largeur de la carte
+    height: 200px; // Définir une hauteur fixe pour l'image
+    object-fit: cover; // L'image couvrira toute la zone définie sans déformer l'aspect ratio
+  }
 
   .score-card-body {
     padding: 1em;
@@ -99,5 +110,11 @@ $card-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       font-size: 1.2em;
     }
   }
+}
+
+.score-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>
