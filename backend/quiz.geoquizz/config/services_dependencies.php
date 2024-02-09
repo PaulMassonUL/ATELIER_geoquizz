@@ -1,6 +1,7 @@
 <?php
 
 use geoquizz\quiz\domain\service\game\ServiceGame;
+use geoquizz\quiz\domain\service\played\ServicePlayed;
 use geoquizz\quiz\domain\service\serie\ServiceSerie;
 use Illuminate\Database\Capsule\Manager;
 use Monolog\Handler\StreamHandler;
@@ -21,6 +22,10 @@ return [
 
     'serie.service' => function (ContainerInterface $c) {
         return new ServiceSerie($c->get('serie.api.base_uri'));
+    },
+
+    'played.service' => function (ContainerInterface $c) {
+        return new ServicePlayed($c->get('serie.api.base_uri'));
     },
 
     'db' => function () {

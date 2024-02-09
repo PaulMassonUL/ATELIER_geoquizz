@@ -71,7 +71,10 @@ class AuthService implements AuthServiceInterface
             $this->logger->warning('failed jwt validation');
             throw new AuthServiceInvalidTokenException("Invalid token");
         }
-        return new UserDTO($payload['email']);
+        $userDTO = new UserDTO($payload['email']);
+        $userDTO->username = $payload['username'];
+        $userDTO->refresh_token = $payload['refresh_token'];
+        return $userDTO;
     }
 
     /**

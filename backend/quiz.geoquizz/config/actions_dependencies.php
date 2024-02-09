@@ -2,6 +2,7 @@
 
 use geoquizz\quiz\app\actions\CreerGameAction;
 use geoquizz\quiz\app\actions\GetGameAction;
+use geoquizz\quiz\app\actions\GetProfileAction;
 use geoquizz\quiz\app\actions\PatchGamesScoreAction;
 use geoquizz\quiz\console\CreateDatabaseCommand;
 use geoquizz\quiz\app\actions\GetGamesPublicAction;
@@ -36,6 +37,10 @@ return [
 
     GetGameAction::class => function (ContainerInterface $container) {
         return new GetGameAction($container->get('game.service'), $container->get('auth.api.base_uri'));
+    },
+
+    GetProfileAction::class => function (ContainerInterface $container) {
+        return new GetProfileAction($container->get('played.service'));
     },
 
     PatchGamesScoreAction::class => function (ContainerInterface $container) {
