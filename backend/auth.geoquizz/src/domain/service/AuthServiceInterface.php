@@ -18,7 +18,4 @@ interface AuthServiceInterface
 
     public function getUsername(string $email): string;
 
-
-
-
 }
