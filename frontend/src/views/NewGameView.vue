@@ -12,7 +12,7 @@ export default {
       game: {
         id_serie: null,
         level: 2,
-        isPublic: true
+        isPublic: false
       }
     }
   },
@@ -117,8 +117,8 @@ export default {
           </div>
         </div>
         <div class="form-check form-switch d-flex align-items-center justify-content-center mt-3">
-          <input class="form-check-input" type="checkbox" role="switch" id="private" v-model="game.isPublic" checked />
-          <label class="form-check-label ms-2" for="private">Partie privée</label>
+          <input class="form-check-input" type="checkbox" role="switch" id="private" v-model="game.isPublic" />
+          <label class="form-check-label ms-2" for="private">Partie publique</label>
         </div>
         <button v-if="sending" class="btn btn-primary" type="button" disabled>
           <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>

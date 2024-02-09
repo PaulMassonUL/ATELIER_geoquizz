@@ -1,48 +1,49 @@
 <script>
 import axios from 'axios'
-import { format, parseISO } from 'date-fns'
-import { fr } from 'date-fns/locale'
+import {format, parseISO} from 'date-fns'
+import {fr} from 'date-fns/locale'
 
 export default {
   data() {
     return {
       games: [],
       series: [],
-      loading: false,
+      games_loading: false,
+      series_loading: false,
       message: '',
       user: ''
     }
   },
   methods: {
     fetchGames() {
-      this.loading = true
+      this.games_loading = true
       axios
-        .get('http://localhost:2080/games')
-        .then((response) => {
-          this.games = response.data
-          if (this.games.length === 0) this.message = 'Aucune partie trouvée. Créez-en une !'
-        })
-        .catch((error) => {
-          console.error(error)
-          this.message = 'Impossible de charger les parties. Veuillez réessayer plus tard.'
-        })
-        .finally(() => {
-          this.loading = false
-        })
+          .get('http://localhost:2080/games')
+          .then((response) => {
+            this.games = response.data
+            if (this.games.length === 0) this.message = 'Aucune partie trouvée. Créez-en une !'
+          })
+          .catch((error) => {
+            console.error(error)
+            this.message = 'Impossible de charger les parties. Veuillez réessayer plus tard.'
+          })
+          .finally(() => {
+            this.games_loading = false
+          })
     },
     fetchSerie() {
-      this.loading = true
+      this.series_loading = true
       axios
-        .get(`http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie`)
-        .then((response) => {
-          this.series = response.data.data
-        })
-        .catch(() => {
-          this.message = 'Impossible de charger la série. Veuillez réessayer plus tard.'
-        })
-        .finally(() => {
-          this.loading = false
-        })
+          .get(`http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie`)
+          .then((response) => {
+            this.series = response.data.data
+          })
+          .catch(() => {
+            this.message = 'Impossible de charger la série. Veuillez réessayer plus tard.'
+          })
+          .finally(() => {
+            this.series_loading = false
+          })
     },
     getSeriesById(game) {
       const serie = this.series.find((serie) => serie.id == game.id_serie)
@@ -64,7 +65,7 @@ export default {
     },
     formatDate(dateString) {
       const date = parseISO(dateString)
-      return format(date, "dd/MM/yyyy 'à' HH:mm:ss", { locale: fr })
+      return format(date, "dd/MM/yyyy 'à' HH:mm:ss", {locale: fr})
     }
   },
   created() {
@@ -77,7 +78,7 @@ export default {
 <template>
   <div>
     <h1 id="title">Liste des parties</h1>
-    <div v-if="loading" class="d-flex justify-content-center mt-5">
+    <div v-if="games_loading || series_loading" class="d-flex justify-content-center mt-5">
       <div id="spinner" class="spinner-border" role="status">
         <span class="visually-hidden">Chargement...</span>
       </div>
@@ -89,13 +90,13 @@ export default {
           <div v-for="game in games" :key="game.id" class="col-md-3 col-sm-6">
             <div class="card mb-3">
               <div class="card-body">
-                <h2 class="card-title">Série : {{ getSeriesById(game).name }}</h2>
+                <h2 class="card-title">{{ getSeriesById(game).name }}</h2>
                 <p class="card-text">Niveau : <span v-html="checkDifficulty(game.level)"></span></p>
                 <p class="card-text">Auteur : {{ game.username }}</p>
                 <p class="card-text">Créé le {{ formatDate(game.created_at) }}</p>
                 <RouterLink id="bouton" :to="'/games/' + game.id + '/play'" class="btn btn-success"
-                  >Lancer la partie ►</RouterLink
-                >
+                >Lancer la partie ►
+                </RouterLink>
               </div>
             </div>
           </div>

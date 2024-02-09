@@ -14,7 +14,9 @@ export default {
   data() {
     return {
       loading: true,
+      message: '',
       game: null,
+      serie: null,
       scores: [],
       current_image: 0,
       location: null,
@@ -29,19 +31,35 @@ export default {
       this.loading = true
 
       axios
-        .get('http://localhost:2080/games/' + this.$route.params.id)
-        .then((response) => {
-          this.game = response.data
-          this.game.sequence.forEach((image) => {
-            image.location.coordinates = image.location.coordinates.reverse()
+          .get('http://localhost:2080/games/' + this.$route.params.id)
+          .then((response) => {
+            this.game = response.data
+            this.game.sequence.forEach((image) => {
+              image.location.coordinates = image.location.coordinates.reverse()
+            })
+
+            this.loading = true
+            axios
+                .get(`http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie`)
+                .then((response) => {
+                  let series = response.data.data
+
+                  this.serie = series.find((serie) => serie.id == this.game.id_serie)
+                  if (!this.serie) {
+                    console.error(`Serie avec l'id ${this.game.id_serie} non trouvée`)
+                  }
+                })
+                .catch(() => {
+                  this.message = 'Impossible de charger la série. Veuillez réessayer plus tard.'
+                })
+                .finally(() => {
+                  this.loading = false
+                })
           })
-        })
-        .catch(() => {
-          this.message = 'Impossible de charger la partie. Essayez de rafraichir la page.'
-        })
-        .finally(() => {
-          this.loading = false
-        })
+          .catch(() => {
+            this.message = 'Impossible de charger la partie. Veuillez réessayer plus tard.'
+          })
+
     },
     handleLocationSelected(location) {
       this.location = location
@@ -80,11 +98,11 @@ export default {
       const D = (() => {
         switch (this.game.level) {
           case 1:
-            return 2000;
-          case 2:
             return 1000;
-          case 3:
+          case 2:
             return 500;
+          case 3:
+            return 250;
           default:
             return 0;
         }
@@ -128,22 +146,30 @@ export default {
 </script>
 
 <template>
-  <div v-if="!ended" class="game-page">
-    <div v-if="loading" class="d-flex justify-content-center mt-5">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Chargement...</span>
+  <div v-if="message" id="message" class="d-flex justify-content-center align-items-center">
+    <div class="alert alert-danger" role="alert">
+      {{ message }}
+    </div>
+  </div>
+  <div v-else-if="!ended" class="game-page">
+    <div v-if="loading" class="d-flex justify-content-center align-items-center">
+      <div class="d-flex flex-column align-items-center spinner">
+        <div id="spinner" class="spinner-border" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+        <label class="spinner-text mt-2">Chargement de la partie...</label>
       </div>
     </div>
     <div v-else>
-      <PlayInfoComponent :game="game" :score="score" :time="time" />
+      <PlayInfoComponent :game="game" :serie="serie" :score="score" :time="time"/>
       <div class="game-content">
         <div class="image-component">
           <img :src="'http://docketu.iutnc.univ-lorraine.fr:11055/assets/' + game.sequence[current_image].url
-            " alt="Si cette image ne s'affiche pas, rafraichissez la page." @load="handleImageLoaded" />
+            " alt="Si cette image ne s'affiche pas, rafraichissez la page." @load="handleImageLoaded"/>
         </div>
         <div class="map-component">
           <PlayMapComponent ref="mapComponent" @location-selected="handleLocationSelected"
-            :default_center="game.sequence[current_image].location.coordinates" />
+                            :default_center="game.sequence[current_image].location.coordinates"/>
         </div>
       </div>
       <button class="btn btn-primary btn-lg validate-button" v-if="location" @click="validate">
@@ -152,17 +178,33 @@ export default {
     </div>
   </div>
   <div v-else class="summary-page">
-    <PlaySummaryComponent :scores="scores" />
+    <PlaySummaryComponent :game="game" :serie="serie" :scores="scores"/>
   </div>
 </template>
 
 <style lang="scss" scoped>
+#message {
+  height: 100%;
+}
+
 .game-page {
   position: relative;
   height: 100%;
 
   & > div {
     height: 100%;
+  }
+
+  .spinner {
+    #spinner {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .spinner-text {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
   }
 
   .game-content {
@@ -174,7 +216,7 @@ export default {
     width: 100%;
     height: 100%;
 
-    >* {
+    > * {
       width: 50%;
       /* Par défaut, la largeur est de 50% */
     }
@@ -183,7 +225,7 @@ export default {
       flex-direction: column;
       /* Change la direction lorsque la largeur de la fenêtre est inférieure à 1100px */
 
-      >* {
+      > * {
         width: 100%;
         /* En colonne, la largeur est de 100% */
         height: 50%;

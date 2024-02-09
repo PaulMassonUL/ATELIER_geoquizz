@@ -6,6 +6,10 @@ export default {
       type: Object,
       required: true
     },
+    serie: {
+      type: Object,
+      required: true
+    },
     score: {
       type: Number,
       required: true
@@ -33,7 +37,7 @@ export default {
   <div id="play-info-container">
     <div class="wrapper">
       <div class="info">
-        <h4>{{ game.id_serie }}</h4>
+        <span class="serie">{{ serie.name }}</span>
       </div>
       <div class="info">
         <span>Créé par :</span>
@@ -73,7 +77,12 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 0 5px;
+      margin: 0 6px;
+
+      .serie {
+        font-size: 1.4em;
+        font-weight: bold;
+      }
     }
   }
 }
