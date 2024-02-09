@@ -30,8 +30,19 @@ export default {
     fetchGame() {
       this.loading = true
 
+      let headers = {}
+      if (this.$root.isUserLoggedIn()) {
+        headers = {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`
+        }
+      }
+
       axios
-        .get('http://localhost:2080/games/' + this.$route.params.id)
+        .get('http://localhost:2080/games/' + this.$route.params.id,
+          {
+            headers: headers
+          }
+        )
         .then((response) => {
           this.game = response.data
           this.game.sequence.forEach((image) => {
@@ -45,6 +56,7 @@ export default {
               let series = response.data.data
 
               this.serie = series.find((serie) => serie.id == this.game.id_serie)
+              this.serie.center_serie.coordinates = this.serie.center_serie.coordinates.reverse()
               if (!this.serie) {
                 console.error(`Serie avec l'id ${this.game.id_serie} non trouvée`)
               }
@@ -138,7 +150,26 @@ export default {
     },
     endGame() {
       clearInterval(this.timer)
+
+      if (this.game.id_played) {
+        this.saveGame()
+      }
+
       this.ended = true
+    },
+    saveGame() {
+      axios
+        .patch('http://localhost:2080/games/' + this.game.id, {
+          id_played: this.game.id_played,
+          score: this.score
+        }, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`
+          }
+        })
+        .catch(() => {
+          this.message = 'Impossible de sauvegarder la partie effectuée.'
+        })
     }
   },
   created() {
@@ -166,21 +197,13 @@ export default {
       <PlayInfoComponent :game="game" :serie="serie" :score="score" :time="time" />
       <div class="game-content">
         <div class="image-component">
-          <img
-            :src="
-              'http://docketu.iutnc.univ-lorraine.fr:11055/assets/' +
-              game.sequence[current_image].url
-            "
-            alt="Si cette image ne s'affiche pas, rafraichissez la page."
-            @load="handleImageLoaded"
-          />
+          <img :src="'http://docketu.iutnc.univ-lorraine.fr:11055/assets/' +
+            game.sequence[current_image].url
+            " alt="Si cette image ne s'affiche pas, rafraichissez la page." @load="handleImageLoaded" />
         </div>
         <div class="map-component">
-          <PlayMapComponent
-            ref="mapComponent"
-            @location-selected="handleLocationSelected"
-            :default_center="game.sequence[current_image].location.coordinates"
-          />
+          <PlayMapComponent ref="mapComponent" @location-selected="handleLocationSelected"
+            :default_center="serie.center_serie.coordinates" />
         </div>
       </div>
       <button class="btn btn-primary btn-lg validate-button" v-if="location" @click="validate">
@@ -202,7 +225,7 @@ export default {
   position: relative;
   height: 100%;
 
-  & > div {
+  &>div {
     height: 100%;
   }
 
@@ -227,7 +250,7 @@ export default {
     width: 100%;
     height: 100%;
 
-    > * {
+    >* {
       width: 50%;
       /* Par défaut, la largeur est de 50% */
     }
@@ -236,7 +259,7 @@ export default {
       flex-direction: column;
       /* Change la direction lorsque la largeur de la fenêtre est inférieure à 1100px */
 
-      > * {
+      >* {
         width: 100%;
         /* En colonne, la largeur est de 100% */
         height: 50%;
