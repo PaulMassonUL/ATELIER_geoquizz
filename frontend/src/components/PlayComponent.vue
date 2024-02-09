@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios'
+import PlayHintComponent from './PlayHintComponent.vue'
 import PlayInfoComponent from './PlayInfoComponent.vue'
 import PlayMapComponent from './PlayMapComponent.vue'
 import PlaySummaryComponent from './PlaySummaryComponent.vue'
@@ -7,6 +8,7 @@ import PlaySummaryComponent from './PlaySummaryComponent.vue'
 export default {
   name: 'PlayComponent',
   components: {
+    PlayHintComponent,
     PlayInfoComponent,
     PlayMapComponent,
     PlaySummaryComponent
@@ -194,6 +196,7 @@ export default {
       </div>
     </div>
     <div v-else>
+      <PlayHintComponent :image="game.sequence[current_image]" />
       <PlayInfoComponent :game="game" :serie="serie" :score="score" :time="time" />
       <div class="game-content">
         <div class="image-component">
@@ -243,28 +246,15 @@ export default {
 
   .game-content {
     display: flex;
-    flex-direction: row;
-    /* Par défaut, les éléments sont disposés côte à côte */
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
     height: 100%;
 
     >* {
-      width: 50%;
-      /* Par défaut, la largeur est de 50% */
-    }
-
-    @media (max-width: 1100px) {
-      flex-direction: column;
-      /* Change la direction lorsque la largeur de la fenêtre est inférieure à 1100px */
-
-      >* {
-        width: 100%;
-        /* En colonne, la largeur est de 100% */
-        height: 50%;
-        /* En colonne, la hauteur est de 50% */
-      }
+      width: 100%;
+      height: 50%;
     }
 
     .image-component {
