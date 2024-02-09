@@ -98,14 +98,17 @@ export default {
                     </div>
                     <div v-else>
                         <div class="list-group list-group-flush">
-                            <div v-for="game in history" :key="game.id" class="list-group-item">
+                            <div v-for="game in history" :key="game.id">
+                                <RouterLink :to="'/games/' + game.id_game + '/play'" class="">
+                                <div class="list-group-item">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">Partie du {{ game.date.toLocaleDateString() }} à {{ game.date.toLocaleTimeString() }}</h5>
                                     <small>{{ game.score }} points</small>
                                 </div>
                                 <div>Série : {{ game.name_serie }}</div>
                                 <small>Difficulté : {{ game.level }}</small>
-                              <RouterLink id="bouton" :to="'/games/' + game.id + '/play'" class="btn btn-success">Rejouer la partie</RouterLink>
+                                </div>
+                                </RouterLink>
                             </div>
 
                         </div>
@@ -142,6 +145,13 @@ export default {
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    a {
+        color: #343a40;
+        text-decoration: none;
+
+    }
+
 }
 
 .profil-title {
