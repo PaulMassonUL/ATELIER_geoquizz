@@ -4,6 +4,7 @@ declare(strict_types=1);
 use geoquizz\quiz\app\actions\CreerGameAction;
 use geoquizz\quiz\app\actions\GetGameAction;
 use geoquizz\quiz\app\actions\GetGamesPublicAction;
+use geoquizz\quiz\app\actions\GetProfileAction;
 use geoquizz\quiz\app\actions\PatchGamesScoreAction;
 use geoquizz\quiz\domain\middleware\Jwt;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -29,4 +30,7 @@ return function(App $app):void {
 
     $app->patch('/games/{id}[/]', PatchGamesScoreAction::class)
         ->setName('game_update_score')->add($JwtVerification);
+
+    $app->get('/profile[/]', GetProfileAction::class)
+        ->setName('profile')->add($JwtVerification);
 };
