@@ -13,7 +13,7 @@ export default {
     scores: {
       type: Array,
       required: true
-    },
+    }
   },
   data() {
     return {
@@ -44,14 +44,18 @@ export default {
     <div class="game-summary mb-4 d-flex flex-column align-items-center">
       <h1>Résumé de la partie</h1>
       <p>Série : {{ serie.name }}</p>
-      <p>Score <span class="badge bg-info">{{ totalScore }}</span></p>
-      <p>Durée de la partie <span class="badge bg-info">{{ getFormattedTime(totalTime) }}</span></p>
+      <p>
+        Score <span class="badge bg-info">{{ totalScore }}</span>
+      </p>
+      <p>
+        Durée de la partie <span class="badge bg-info">{{ getFormattedTime(totalTime) }}</span>
+      </p>
     </div>
-    <hr>
+    <hr />
     <div v-for="(score, index) in scores" :key="index">
       <div class="score-counter">#{{ index + 1 }}</div>
       <div class="score-card mb-4 d-flex">
-        <img :src="score.image" alt="Image">
+        <img :src="score.image" alt="Image" />
         <div class="score-card-body">
           <p class="score-card-title">{{ score.score }} points</p>
           <p class="score-card-text">Temps : {{ getFormattedTime(score.time) }}</p>
@@ -73,13 +77,12 @@ $card-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
   p {
     font-size: 1.4em;
-    margin-bottom: 0em;
+    margin-bottom: 0;
   }
 }
 
 .score-counter {
   font-size: 1.4em;
-
 }
 
 .score-card {

@@ -31,35 +31,34 @@ export default {
       this.loading = true
 
       axios
-          .get('http://localhost:2080/games/' + this.$route.params.id)
-          .then((response) => {
-            this.game = response.data
-            this.game.sequence.forEach((image) => {
-              image.location.coordinates = image.location.coordinates.reverse()
+        .get('http://localhost:2080/games/' + this.$route.params.id)
+        .then((response) => {
+          this.game = response.data
+          this.game.sequence.forEach((image) => {
+            image.location.coordinates = image.location.coordinates.reverse()
+          })
+
+          this.loading = true
+          axios
+            .get(`http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie`)
+            .then((response) => {
+              let series = response.data.data
+
+              this.serie = series.find((serie) => serie.id == this.game.id_serie)
+              if (!this.serie) {
+                console.error(`Serie avec l'id ${this.game.id_serie} non trouvée`)
+              }
             })
-
-            this.loading = true
-            axios
-                .get(`http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie`)
-                .then((response) => {
-                  let series = response.data.data
-
-                  this.serie = series.find((serie) => serie.id == this.game.id_serie)
-                  if (!this.serie) {
-                    console.error(`Serie avec l'id ${this.game.id_serie} non trouvée`)
-                  }
-                })
-                .catch(() => {
-                  this.message = 'Impossible de charger la série. Veuillez réessayer plus tard.'
-                })
-                .finally(() => {
-                  this.loading = false
-                })
-          })
-          .catch(() => {
-            this.message = 'Impossible de charger la partie. Veuillez réessayer plus tard.'
-          })
-
+            .catch(() => {
+              this.message = 'Impossible de charger la série. Veuillez réessayer plus tard.'
+            })
+            .finally(() => {
+              this.loading = false
+            })
+        })
+        .catch(() => {
+          this.message = 'Impossible de charger la partie. Veuillez réessayer plus tard.'
+        })
     },
     handleLocationSelected(location) {
       this.location = location
@@ -76,7 +75,6 @@ export default {
       if (this.current_image === this.game.sequence.length - 1) {
         this.endGame()
       } else {
-
         this.location = null
         this.$refs.mapComponent.removeMarker()
         this.current_image = this.current_image + 1
@@ -98,17 +96,19 @@ export default {
       const D = (() => {
         switch (this.game.level) {
           case 1:
-            return 1000;
+            return 1000
           case 2:
-            return 500;
+            return 500
           case 3:
-            return 250;
+            return 250
           default:
-            return 0;
+            return 0
         }
-      })();
+      })()
 
-      const distance = this.location.distanceTo(this.game.sequence[this.current_image].location.coordinates)
+      const distance = this.location.distanceTo(
+        this.game.sequence[this.current_image].location.coordinates
+      )
       let score = 0
       if (distance < D) {
         score = 5
@@ -128,11 +128,13 @@ export default {
       this.score += score
 
       this.scores.push({
-        image: 'http://docketu.iutnc.univ-lorraine.fr:11055/assets/' + this.game.sequence[this.current_image].url,
+        image:
+          'http://docketu.iutnc.univ-lorraine.fr:11055/assets/' +
+          this.game.sequence[this.current_image].url,
         score: score,
         time: this.time,
         distance: distance
-      });
+      })
     },
     endGame() {
       clearInterval(this.timer)
@@ -161,15 +163,24 @@ export default {
       </div>
     </div>
     <div v-else>
-      <PlayInfoComponent :game="game" :serie="serie" :score="score" :time="time"/>
+      <PlayInfoComponent :game="game" :serie="serie" :score="score" :time="time" />
       <div class="game-content">
         <div class="image-component">
-          <img :src="'http://docketu.iutnc.univ-lorraine.fr:11055/assets/' + game.sequence[current_image].url
-            " alt="Si cette image ne s'affiche pas, rafraichissez la page." @load="handleImageLoaded"/>
+          <img
+            :src="
+              'http://docketu.iutnc.univ-lorraine.fr:11055/assets/' +
+              game.sequence[current_image].url
+            "
+            alt="Si cette image ne s'affiche pas, rafraichissez la page."
+            @load="handleImageLoaded"
+          />
         </div>
         <div class="map-component">
-          <PlayMapComponent ref="mapComponent" @location-selected="handleLocationSelected"
-                            :default_center="game.sequence[current_image].location.coordinates"/>
+          <PlayMapComponent
+            ref="mapComponent"
+            @location-selected="handleLocationSelected"
+            :default_center="game.sequence[current_image].location.coordinates"
+          />
         </div>
       </div>
       <button class="btn btn-primary btn-lg validate-button" v-if="location" @click="validate">
@@ -178,7 +189,7 @@ export default {
     </div>
   </div>
   <div v-else class="summary-page">
-    <PlaySummaryComponent :game="game" :serie="serie" :scores="scores"/>
+    <PlaySummaryComponent :game="game" :serie="serie" :scores="scores" />
   </div>
 </template>
 

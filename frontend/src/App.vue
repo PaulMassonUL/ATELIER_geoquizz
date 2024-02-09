@@ -6,6 +6,16 @@ export default {
   components: {
     RouterLink,
     RouterView
+  },
+  data() {
+    return {
+      isUserLogged: false
+    }
+  },
+  watch: {
+    $route() {
+      this.isUserLogged = this.$root.isUserLoggedIn()
+    }
   }
 }
 </script>
@@ -17,7 +27,8 @@ export default {
         <div class="wrapper">
           <nav>
             <RouterLink id="nav-accueil" to="/">GeoQuizz</RouterLink>
-            <RouterLink id="nav-action" to="/signin">Connexion</RouterLink>
+            <RouterLink v-if="isUserLogged" id="nav-action" to="/profil">Profil</RouterLink>
+            <RouterLink v-else id="nav-action" to="/signin">Connexion</RouterLink>
           </nav>
         </div>
       </div>
@@ -40,7 +51,7 @@ export default {
   header {
     position: relative;
     z-index: 100;
-    box-shadow: 0px 0px 10px 0px black;
+    box-shadow: 0 0 10px 0 black;
 
     .menu {
       height: fit-content;
