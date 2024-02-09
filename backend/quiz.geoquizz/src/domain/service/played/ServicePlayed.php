@@ -46,6 +46,7 @@ class ServicePlayed implements iPlayed
                 'name_serie' => $id_serie_name,
                 'id_user' => $p->id_user,
                 'score' => $p->score,
+                'date' => $p->date
             ];
         }
         return $liste;
