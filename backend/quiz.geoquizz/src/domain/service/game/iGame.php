@@ -11,5 +11,6 @@ interface iGame
 
     function GetGamesPublic() : array;
 
-    function startGameById($id_game, $id_user) : GameDTO;
+    function startGameById($id_game, $id_user) : array;
+
 }

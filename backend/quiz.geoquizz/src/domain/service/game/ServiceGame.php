@@ -24,7 +24,6 @@ class ServiceGame implements iGame
     private string $serie_uri;
 
 
-
     public function __construct(LoggerInterface $logger, ServiceSerie $serviceSerie, string $auth_uri, string $serie_uri)
     {
         $this->logger = $logger;
@@ -77,15 +76,12 @@ class ServiceGame implements iGame
         } catch (Exception $e) {
             throw new Exception("Erreur lors de la récupération du username" . $e);
         }
-
-        $this->playedGame($game, $g->id_user);
-
         $this->logger->info("Game $uuid créée");
         return $gameDTO;
     }
 
     //Ajoute un objet played dans la base de données (table played) avec les informations de la partie jouée
-    public function playedGame(Game $game, string $id_user): void
+    public function playedGame(Game $game, string $id_user): Played
     {
         $played = new Played();
         $played->id_game = $game->id;
@@ -94,6 +90,7 @@ class ServiceGame implements iGame
         $played->date = date('Y-m-d H:i:s');
 
         $played->save();
+        return $played;
     }
 
 
@@ -103,7 +100,7 @@ class ServiceGame implements iGame
      */
     public function getGamesPublic(): array
     {
-        try{
+        try {
             $clientAuth = new Client([
                 'base_uri' => $this->auth_uri,
                 'timeout' => 60.0,
@@ -139,47 +136,51 @@ class ServiceGame implements iGame
     /**
      * @throws Exception
      */
-    public function startGameById($id_game, $id_user = null): GameDTO
+    public function startGameById($id_game, $id_user = null): array
     {
         $game = Game::where('id', $id_game)->first();
         if (!$game) {
             throw new Exception("Game not found", 404);
         }
-        try {
-            $clientAuth = new Client([
-                'base_uri' => $this->auth_uri,
-                'timeout' => 60.0,
-                'http_errors' => false
-            ]);
-            $headers = [
-                'Origin' => $_SERVER['HTTP_HOST'],
-            ];
-            $response = $clientAuth->request('GET', '/api/users/username?id_user=' . $game->id_user, [
-                'headers' => $headers
-            ]);
-            $body = $response->getBody()->getContents();
-            $data = json_decode($body, true);
+        if ($game->isPublic == 1 || ($id_user !== null && $game->id_user == $id_user)) {
+            try {
+                $clientAuth = new Client([
+                    'base_uri' => $this->auth_uri,
+                    'timeout' => 60.0,
+                    'http_errors' => false
+                ]);
+                $headers = [
+                    'Origin' => $_SERVER['HTTP_HOST'],
+                ];
+                $response = $clientAuth->request('GET', '/api/users/username?id_user=' . $game->id_user, [
+                    'headers' => $headers
+                ]);
+                $body = $response->getBody()->getContents();
+                $data = json_decode($body, true);
 
-        } catch (Exception $e) {
-            throw new Exception("Erreur lors de la récupération du username" . $e);
-        }
-
-        if ($game->isPublic == 1) {
-            $this->playedGame($game, $game->id_user);
+            } catch (Exception $e) {
+                throw new Exception("Erreur lors de la récupération du username" . $e);
+            }
+            $game->state = Game::ETAT_EN_COURS;
+            $game->save();
             $gameDTO = $game->toDTO();
             $gameDTO->username = $data['username'];
+            $gameDTO = (array) $gameDTO;
+            if($id_user){
+                $played = $this->playedGame($game, $id_user);
+                $gameDTO['id_played'] = $played->id;
+            }
             return $gameDTO;
         } else {
-            // Vérifie si l'utilisateur fourni correspond à l'utilisateur associé au jeu
-            if ($id_user !== null && $game->id_user == $id_user) {
-                $this->playedGame($game, $game->id_user);
-                $gameDTO = $game->toDTO();
-                $gameDTO->username = $data['username'];
-                return $game->toDTO();
-            } else {
-                throw new Exception("Access denied", 403); // Accès non autorisé
-            }
+            throw new Exception("Access denied", 403); // Accès non autorisé
         }
+    }
+
+    public function updateScore($id_played, $score): void
+    {
+        $played = Played::find($id_played);
+        $played->score = $score;
+        $played->save();
     }
 
 
