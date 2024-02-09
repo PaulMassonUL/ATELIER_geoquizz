@@ -246,7 +246,6 @@ export default {
 
   .game-content {
     display: flex;
-    flex-direction: row;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
