@@ -20,7 +20,7 @@ class ServiceSerie implements iSerie
     /**
      * @throws Exception
      */
-    public function sequenceByIdSerie(string $id): string
+    public function sequenceByIdSerie(string $id, int $level): string
     {
         $client = new Client([
             'base_uri' => $this->series_uri,
@@ -33,8 +33,13 @@ class ServiceSerie implements iSerie
             $images = array_column($data['data']['image'], 'Image_id');
             // Mélanger les images aléatoirement
             shuffle($images);
-            // Sélectionner les 10 premières images après le mélange
-            $selectedImages = array_slice($images, 0, 10);
+            if($level == 3) {
+                $selectedImages = array_slice($images, 0, 10);
+            } elseif ($level == 2) {
+                $selectedImages = array_slice($images, 0, 5);
+            } else {
+                $selectedImages = array_slice($images, 0, 3);
+            }
             $sequence = [];
             foreach ($selectedImages as $image) {
                 $sequence[] = [
