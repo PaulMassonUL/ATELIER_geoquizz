@@ -59,7 +59,7 @@ export default {
         <div class="score-card-body">
           <p class="score-card-title">{{ score.score }} points</p>
           <p class="score-card-text">Temps : {{ getFormattedTime(score.time) }}</p>
-          <p class="score-card-text">Distance: {{ score.distance.toFixed(1) }} m</p>
+          <p class="score-card-text">Distance: {{ score.distance.toFixed(0) }} m</p>
         </div>
       </div>
     </div>
