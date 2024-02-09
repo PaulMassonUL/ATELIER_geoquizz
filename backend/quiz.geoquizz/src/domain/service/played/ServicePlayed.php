@@ -20,6 +20,7 @@ class ServicePlayed implements iPlayed
 
     /**
      * @throws GuzzleException
+     * @throws Exception
      */
     public function getGamesPlayedByUser($id_user): array
     {
