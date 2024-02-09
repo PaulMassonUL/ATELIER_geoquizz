@@ -1,15 +1,15 @@
 <script>
-import ProfilComponent from '@/components/ProfilComponent.vue'
+import ProfileComponent from '@/components/ProfileComponent.vue'
 
 export default {
   components: {
-    ProfilComponent
+    ProfileComponent
   }
 }
 </script>
 
 <template>
   <section class="container mt-3">
-    <ProfilComponent />
+    <ProfileComponent />
   </section>
 </template>

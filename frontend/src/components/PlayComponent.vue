@@ -31,7 +31,7 @@ export default {
       this.loading = true
 
       let headers = {}
-      if (this.$root.isUserLoggedIn()) {
+      if (this.$root.$data.signedIn) {
         headers = {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`
         }

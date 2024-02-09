@@ -14,7 +14,7 @@ export default {
   },
   watch: {
     $route() {
-      this.isUserLogged = this.$root.isUserLoggedIn()
+      this.$root.isUserSignedIn()
     }
   }
 }
@@ -27,7 +27,7 @@ export default {
         <div class="wrapper">
           <nav>
             <RouterLink id="nav-accueil" to="/">GeoQuizz</RouterLink>
-            <RouterLink v-if="isUserLogged" id="nav-action" to="/profil">Profil</RouterLink>
+            <RouterLink v-if="this.$root.$data.signedIn" id="nav-action" to="/profile">Profil</RouterLink>
             <RouterLink v-else id="nav-action" to="/signin">Connexion</RouterLink>
           </nav>
         </div>
