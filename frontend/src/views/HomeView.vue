@@ -4,7 +4,7 @@
     <div class="header-desc-container">
       <div class="header-desc">
         <h1>Explorez le monde</h1>
-        <p>
+        <p id="title-descr">
           On vous dépose partout : des rues tumultueuses de New York aux magnifiques plages de Bali.
         </p>
         <RouterLink id="bouton" to="/games">JOUEZ MAINTENANT</RouterLink>
@@ -56,6 +56,10 @@
 </template>
 
 <style lang="scss" scoped>
+#title-descr {
+  font-family: 'Comfortaa', cursive;
+
+}
 .banner-container {
   .background {
     width: 100%;
