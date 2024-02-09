@@ -31,6 +31,7 @@ class ServicePlayed implements iPlayed
         $liste = [];
         foreach ($played as $p) {
             $game = Game::where('id', $p->id_game)->first();
+            $level = $game->level;
             $id_serie = $game->id_serie;
             try {
                 $response = $client->request('GET', '/items/Serie/' . $id_serie . '?fields=*.Image_id.*');
@@ -44,6 +45,7 @@ class ServicePlayed implements iPlayed
                 'id' => $p->id,
                 'id_game' => $p->id_game,
                 'name_serie' => $id_serie_name,
+                'level' => $level,
                 'id_user' => $p->id_user,
                 'score' => $p->score,
                 'date' => $p->date
