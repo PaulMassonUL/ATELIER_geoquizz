@@ -56,7 +56,6 @@ CREATE TABLE `played`
     `id_game` varchar(255) NOT NULL,
     `id_user`   varchar(255) NOT NULL,
     `score`     int(11) NOT NULL,
-    `state`      int(11) NOT NULL,
     `date`      datetime NOT NULL,
     PRIMARY KEY (`id`),
     CONSTRAINT `fk_game_id` FOREIGN KEY (`id_game`) REFERENCES `game` (`id`) ON DELETE CASCADE
