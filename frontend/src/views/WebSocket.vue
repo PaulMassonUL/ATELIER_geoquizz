@@ -15,7 +15,7 @@ export default {
   //mounted appelé lorsque la composante est montée dans le dom
   mounted() {
     // initialise la connection
-    this.socket = io('http://localhost:3000');
+    this.socket = io('http://docketu.iutnc.univ-lorraine.fr:3000');
 
     //évenement émis dès que la connection est établie
 

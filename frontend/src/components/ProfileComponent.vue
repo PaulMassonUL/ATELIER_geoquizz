@@ -12,7 +12,7 @@ export default {
     },
     methods: {
         fetchProfil() {
-            axios.get('http://localhost:2080/profile', {
+            axios.get('http://docketu.iutnc.univ-lorraine.fr:2080/profile', {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('access_token')
                 }

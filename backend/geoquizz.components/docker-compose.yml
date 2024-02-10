@@ -79,3 +79,18 @@ services:
     volumes:
       - ../rabbitmq.geoquizz:/var/lib/rabbitmq
     env_file: ./rab.env
+
+  apache2:
+    image: 'canals/php:8.2'
+    env_file: ./front.env
+    ports:
+      - '8081:80'
+    volumes:
+      - ../../frontend.geoquizz:/var/www
+      - ../front.geoquizz/public:/var/www/html
+    working_dir: /var/www
+    networks:
+      - geo-quizz.net
+    depends_on:
+      - api.geo-quizz
+      - api.geo-auth

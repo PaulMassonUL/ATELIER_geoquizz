@@ -39,7 +39,7 @@ export default {
       this.sending_error = ''
       this.sending = true
       axios
-        .post('http://localhost:2080/games/new', this.game, {
+        .post('http://docketu.iutnc.univ-lorraine.fr:2080/games/new', this.game, {
           headers: {
             Authorization: 'Bearer ' + localStorage.getItem('access_token')
           }
@@ -58,7 +58,7 @@ export default {
     fetchSeries() {
       this.loading = true
       axios
-        .get('http://docketu.iutnc.univ-lorraine.fr:11055/items/Serie')
+        .get('http://docketu.iutnc.univ-lorraine.fr:11155/items/Serie')
         .then((response) => {
           this.series = response.data.data
           if (this.series.length === 0) this.error = true
