@@ -18,9 +18,10 @@ export default {
     fetchGames() {
       this.games_loading = true
       axios
-        .get('http://docketu.iutnc.univ-lorraine.fr:2080/games')
+        .get('http://docketu.iutnc.univ-lorraine.fr:11111/games')
         .then((response) => {
           this.games = response.data
+          console.log('dataGames', this.games)
           if (this.games.length === 0) this.message = 'Aucune partie trouvée. Créez-en une !'
         })
         .catch((error) => {
@@ -34,7 +35,7 @@ export default {
     fetchSerie() {
       this.series_loading = true
       axios
-        .get(`http://docketu.iutnc.univ-lorraine.fr:11155/items/Serie`)
+        .get(`http://docketu.iutnc.univ-lorraine.fr:11110/items/Serie`)
         .then((response) => {
           this.series = response.data.data
         })

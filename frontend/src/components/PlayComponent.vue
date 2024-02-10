@@ -40,7 +40,7 @@ export default {
       }
 
       axios
-        .get('http://docketu.iutnc.univ-lorraine.fr:2080/games/' + this.$route.params.id,
+        .get('http://docketu.iutnc.univ-lorraine.fr:11111/games/' + this.$route.params.id,
           {
             headers: headers
           }
@@ -53,7 +53,7 @@ export default {
 
           this.loading = true
           axios
-            .get(`http://docketu.iutnc.univ-lorraine.fr:11155/items/Serie`)
+            .get(`http://docketu.iutnc.univ-lorraine.fr:11110/items/Serie`)
             .then((response) => {
               let series = response.data.data
 
@@ -143,7 +143,7 @@ export default {
 
       this.scores.push({
         image:
-          'http://docketu.iutnc.univ-lorraine.fr:11155/assets/' +
+          'http://docketu.iutnc.univ-lorraine.fr:11110/assets/' +
           this.game.sequence[this.current_image].url,
         score: score,
         time: this.time,
@@ -161,7 +161,7 @@ export default {
     },
     saveGame() {
       axios
-        .patch('http://docketu.iutnc.univ-lorraine.fr:2080/games/' + this.game.id, {
+        .patch('http://docketu.iutnc.univ-lorraine.fr:11111/games/' + this.game.id, {
           id_played: this.game.id_played,
           score: this.score
         }, {
@@ -200,7 +200,7 @@ export default {
       <PlayInfoComponent :game="game" :serie="serie" :score="score" :time="time" />
       <div class="game-content">
         <div class="image-component">
-          <img :src="'http://docketu.iutnc.univ-lorraine.fr:11155/assets/' +
+          <img :src="'http://docketu.iutnc.univ-lorraine.fr:11110/assets/' +
             game.sequence[current_image].url
             " alt="Si cette image ne s'affiche pas, rafraichissez la page." @load="handleImageLoaded" />
         </div>

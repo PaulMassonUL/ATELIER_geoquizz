@@ -34,7 +34,7 @@ export default {
       this.loading = true
 
       axios
-        .post('http://docketu.iutnc.univ-lorraine.fr:2780/api/users/signup', {
+        .post('http://docketu.iutnc.univ-lorraine.fr:11114/api/users/signup', {
           email: this.email,
           password: this.password,
           username: this.username

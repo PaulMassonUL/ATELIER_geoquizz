@@ -26,7 +26,7 @@ app.mixin({
       }
 
       try {
-        await axios.get('http://docketu.iutnc.univ-lorraine.fr:2780/api/users/validate', {
+        await axios.get('http://docketu.iutnc.univ-lorraine.fr:11114/api/users/validate', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('access_token')}`
           }
